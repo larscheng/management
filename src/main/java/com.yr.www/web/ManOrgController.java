@@ -58,6 +58,7 @@ public class ManOrgController {
         if (!ObjectUtils.isEmpty(org.getOrgFounder())){
             orgs=orgs.stream().filter(dto -> dto.getOrgFounder().equals(org.getOrgFounder())).collect(Collectors.toList());
         }
+        orgs.forEach(dto -> dto.setNowNum(manUserOrgMapper.selectCount(new EntityWrapper<>(new ManUserOrg().setoId(dto.getId())))));
         return JSONObject.toJSON(orgs);
     }
 
@@ -80,6 +81,46 @@ public class ManOrgController {
      * @param id
      * @return
      */
+    @RequestMapping(value = {"/changeUserInit"})
+    public ModelAndView changeUserInit(ModelAndView modelAndView,Integer id){
+        List<ManUserOrg> manUserOrgs = manUserOrgMapper.selectListByOid(id);
+        List<Integer> Ids = new ArrayList<>();
+        if (!ObjectUtils.isEmpty(manUserOrgs)){
+            manUserOrgs.forEach(manUserOrg -> Ids.add(manUserOrg.getuId()));
+        }
+        List<ManUser> manUsers = manUserMapper.selectListByIds(Ids);
+        modelAndView.addObject("manUsers",manUsers);
+        modelAndView.addObject("orgId",id);
+        modelAndView.setViewName("user/changeUser");
+        return modelAndView;
+    }
+
+
+    /***
+     *
+     * 转让社团
+     * @param org
+     * @return
+     */
+    @RequestMapping(value = {"/orgChangeUser"})
+    @ResponseBody
+    public Object orgChangeUser(ManOrg org){
+        if (ObjectUtils.isEmpty(org.getOrgFounder())||ObjectUtils.isEmpty(org.getId())){
+            return JSONObject.toJSON("输入错误！");
+        }
+        ManOrg manOrg = manOrgMapper.selectById(org.getId());
+        if (!ObjectUtils.isEmpty(manOrg)&&org.getOrgFounder().equals(manOrg.getOrgFounder())){
+            return JSONObject.toJSON("不可以将社团转让给自己");
+        }
+        manOrgMapper.updateById(org);
+        return JSONObject.toJSON("OK");
+    }
+
+    /***
+     * 获取社团成员列表
+     * @param id
+     * @return
+     */
     @RequestMapping(value = {"/orgUser"})
     @ResponseBody
     public Object orgUser(Integer id){
@@ -93,6 +134,39 @@ public class ManOrgController {
         List<ManUser> users = manUserMapper.selectListByIds(userIds);
         return JSONObject.toJSON(users);
     }
+
+    /**
+     * 退出社团
+     * @param oId
+     * @param uId
+     * @return
+     */
+    @RequestMapping(value = {"/orgQuit"})
+    @ResponseBody
+    @Transactional
+    public Object orgQuit(Integer oId,Integer uId){
+        ManOrg manOrg = manOrgMapper.selectById(oId);
+        if (!ObjectUtils.isEmpty(manOrg)&&manOrg.getOrgFounder().equals(uId)){
+            return JSONObject.toJSON("您是社团管理员，不可以退出社团！！！");
+        }
+        ManUserOrg manUserOrg = new ManUserOrg();
+        manUserOrg.setoId(oId);
+        manUserOrg.setuId(uId);
+        ManUserOrg userOrg = manUserOrgMapper.selectOne(manUserOrg);
+        if (ObjectUtils.isEmpty(userOrg)){
+            return JSONObject.toJSON("您不是该社团成员！！！");
+        }else {
+            manUserOrgMapper.deleteById(userOrg.getId());
+            //删除申请记录
+            ManApply manApply = new ManApply();
+            manApply.setoId(oId);
+            manApply.setuId(uId);
+            ManApply apply = manApplyMapper.selectOne(manApply);
+            manApplyMapper.deleteById(apply.getId());
+        }
+        return JSONObject.toJSON("OK");
+    }
+
 
     /***
      * 社团添加
@@ -109,13 +183,18 @@ public class ManOrgController {
 
 
     /**
-     * 社团启用禁用
+     * 社团启用禁用+编辑
      * @param org
      * @return
      */
     @RequestMapping(value = {"/orgAble"})
     @ResponseBody
     public Object orgAble(ManOrg org){
+        Integer nowNum = manUserOrgMapper.selectCount(new EntityWrapper<>(new ManUserOrg().setoId(org.getId())));
+//        Integer orgNum = manOrgMapper.selectCount(new EntityWrapper<>(new ManOrg().setId(org.getId())));
+        if (nowNum>org.getOrgNum()){
+            return JSONObject.toJSON("社团当前成员："+nowNum+"人，请修改合理人数上限");
+        }
         manOrgMapper.updateById(org);
         return JSONObject.toJSON("OK");
     }
@@ -248,10 +327,19 @@ public class ManOrgController {
         return JSONObject.toJSON(manOrgDtos);
     }
 
-
+    /***
+     * 申请加入社团
+     * @param apply
+     * @return
+     */
     @RequestMapping(value = {"/orgApply"})
     @ResponseBody
     public Object orgApply(ManApply apply){
+        Integer nowNum = manUserOrgMapper.selectCount(new EntityWrapper<>(new ManUserOrg().setoId(apply.getoId())));
+        Integer orgNum = manOrgMapper.selectCount(new EntityWrapper<>(new ManOrg().setId(apply.getoId())));
+        if (orgNum<=nowNum){
+            return JSONObject.toJSON("抱歉！社团成员已满！");
+        }
         ManUserOrg manUserOrg = new ManUserOrg();
         manUserOrg.setoId(apply.getoId());
         manUserOrg.setuId(apply.getuId());

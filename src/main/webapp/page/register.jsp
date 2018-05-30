@@ -26,30 +26,37 @@
         <div class="m-login-warp">
             <form class="layui-form" id="loginForm" method="post">
                 <div class="layui-form-item">
-                    <input type="text" name="userCode" id="title" required lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
+                    <input type="text"  name="userName" id="" lay-verify="required" placeholder="请输入真实姓名" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-item">
-                    <input type="password" name="userPassword" id="password" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
+                    <input type="text"  name="userCode" id="title" lay-verify="required|userCode" placeholder="请输入账号" autocomplete="off" class="layui-input">
                 </div>
+                <%--<div class="layui-form-item">--%>
+                    <%--<input type="password" name="userPassword" id="password" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">--%>
+                <%--</div>--%>
+
+
+
+
                 <div class="layui-form-item">
 
-                    <div class="layui-form-item">
-                    <input type="password" name="userPassword" id="password2" required lay-verify="required" placeholder="确认密码" autocomplete="off" class="layui-input">
+                        <input type="password" value="" name="userPassword" placeholder="请输入新密码" lay-verify="required|newPwd" id="oldPwd" class="layui-input pwd">
                 </div>
+
                 <div class="layui-form-item">
-                    <!--<div class="layui-inline">-->
-                    <!--<input type="text" name="verity" required lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input">-->
-                    <!--</div>-->
-                    <!--<div class="layui-inline">-->
-                    <!--<img class="verifyImg" onclick="this.src=this.src+'?c='+Math.random();" src="../images/login/yzm.jpg" />-->
-                    <!--</div>-->
+
+                        <input type="password" value="" placeholder="请确认密码" lay-verify="required|confirmPwd" class="layui-input pwd">
+                </div>
+
+                <div class="layui-form-item">
+
                 </div>
                 <div class="layui-form-item m-login-btn">
                     <div class="layui-inline">
-                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="login" <%--onclick="loginSubmit()"--%>>注册</button>
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="register" <%--onclick="loginSubmit()"--%>>注册</button>
                     </div>
                     <div class="layui-inline">
-                        <button type="reset" class="layui-btn layui-btn-primary ">取消</button>
+                        <button type="button" class="layui-btn layui-btn-primary " onclick="window.location.href='${ctx}/'">去登录</button>
                     </div>
                 </div>
             </form>
@@ -64,21 +71,29 @@
         var form = layui.form(),
             layer = layui.layer;
 
-
-        //自定义验证规则
+        //添加验证规则
         form.verify({
             userCode: function(value) {
-                if(value.length < 5) {
-                    return '标题至少得5个字符啊';
+                if(value.length !== 8) {
+                    return '账号必须为8为数字';
                 }
             },
-            userPassword: [/(.+){6,12}$/, '密码必须6到12位'],
-
-        });
+            newPwd : function(value, item){
+                if(value.length < 6){
+                    return "密码长度不能小于6位";
+                }
+            },
+            confirmPwd : function(value, item){
+                if(/*!new RegExp($("#oldPwd").val()).test(value)*/$("#oldPwd").val()!==value){
+                    return "两次输入密码不一致，请重新输入！";
+                }
+            }
+        })
+        //自定义验证规则
 
 
         //监听提交
-        form.on('submit(login)', function(data) {
+        form.on('submit(register)', function(data) {
 //            layer.alert(JSON.stringify(data.field), {
 //                title: '最终的提交信息'
 //            })
@@ -88,7 +103,7 @@
             var formData = new FormData($( "#loginForm" )[0]);  // 要求使用的html对象
             $.ajax({
                 type: "post",
-                url: "/login",
+                url: "/register",
                 data: formData,
 //                data: $("#addOrgForm").serialize(),
                 async: true,
@@ -99,14 +114,13 @@
                 dataType: "json",
                 success: function (msg) {
                     if ("OK" == msg) {
-                        var index = top.layer.msg('身份校验中，请稍候',{icon: 16,time:false,shade:0.8});
+                        var index = top.layer.msg('注册成功，跳转至登录',{icon: 16,time:false,shade:0.8});
                         setTimeout(function(){
                             top.layer.close(index);
-                            top.layer.msg("登录成功！");
                             layer.closeAll("iframe");
                             //刷新父页面
-                            location.href="/index"
-                        },500);
+                            location.href="/"
+                        },1000);
                     } else{
                         var index = top.layer.msg(msg);
                         setTimeout(function(){

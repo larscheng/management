@@ -80,8 +80,9 @@ public class ManOrg implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
+    public ManOrg setId(Integer id) {
         this.id = id;
+        return this;
     }
 
     public String getOrgName() {

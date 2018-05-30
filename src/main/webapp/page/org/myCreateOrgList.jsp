@@ -26,10 +26,7 @@
 <body class="childrenBody">
 <blockquote class="layui-elem-quote news_search">
     <div class="layui-inline">
-        <div class="layui-input-inline">
-            <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
-        </div>
-        <a class="layui-btn search_btn">查询</a>
+        <div class="layui-form-mid" style="font-size: 20px">我管理的社团列表</div>
     </div>
     <div class="layui-inline">
         <a class="layui-btn layui-btn-normal newsAdd_btn">申请创建社团</a>
@@ -89,7 +86,7 @@
             layer = parent.layer === undefined ? layui.layer : parent.layer,
             laypage = layui.laypage,
             $ = layui.jquery;
-
+        form.render();
         //加载页面数据
         var newsData = '';
         $.get(/*"/layui-admin/json/newsList.json",*/"/orgList?orgFounder=${sessionScope.sessionUser.id}&auditStatus=2", function(data){
@@ -121,7 +118,9 @@
                 newsList();
             }
         })
-
+        $("body").on("click",".news_quit",function(){  //转让
+           location.href="${ctx}/changeUserInit?id="+$(this).attr("data-id");
+        })
         //查询
         $(".search_btn").click(function(){
             var newArray = [];
@@ -332,15 +331,7 @@
             location.href="/orgHome?id="+$(this).attr("data-id")
         })
 
-        $("body").on("click",".news_collect",function(){  //收藏.
-            if($(this).text().indexOf("已收藏") > 0){
-                layer.msg("取消收藏成功！");
-                $(this).html("<i class='layui-icon'>&#xe600;</i> 收藏");
-            }else{
-                layer.msg("收藏成功！");
-                $(this).html("<i class='iconfont icon-star'></i> 已收藏");
-            }
-        })
+
 
         $("body").on("click",".news_pub",function(){  //删除
             var _this = $(this);
@@ -420,7 +411,7 @@
                             dataHtml += '<td style="color:#ff3225">审核不通过</td>';
                         }
                         dataHtml += '<td>'+timestampToTime(currData[i].gmtCreate)+'</td>'
-                            +'<td>'+currData[i].orgNum+'人/'+currData[i].orgNum+'人</td>';
+                            +'<td>'+currData[i].nowNum+'人/'+currData[i].orgNum+'人</td>';
                         if(currData[i].orgStatus == 1){
                             dataHtml += '<td style="color:green">启用</td>';
 //                                +'<td><a class="layui-btn layui-btn-warm layui-btn-mini news_able" data-id="'+currData[i].id+'" data-state="0"><i class="iconfont icon-edit"></i> 禁用</a>';

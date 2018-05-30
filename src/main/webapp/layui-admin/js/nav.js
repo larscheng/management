@@ -12,7 +12,7 @@ var navs = [{
         {
             "title" : "管理员列表",
             "icon" : "&#xe631;",
-            "href" : "/page/user/userList.jsp",
+            "href" : "/page/user/admList.jsp",
             "spread" : false
         },
         {

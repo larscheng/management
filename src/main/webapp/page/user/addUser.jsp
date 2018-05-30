@@ -58,8 +58,13 @@
         <label class="layui-form-label">用户类型</label>
         <div class="layui-input-block">
             <select name="userType" class="userGrade" lay-filter="userGrade">
+            <c:if test="${sessionScope.sessionUser.userType eq 0}">
                 <option value="4">普通用户</option>
-                <option value="1">超级管理员</option>
+                <option value="1">管理员</option>
+            </c:if>
+                <c:if test="${sessionScope.sessionUser.userType eq 1}">
+                    <option value="4">普通用户</option>
+                </c:if>
             </select>
         </div>
     </div>

@@ -38,17 +38,13 @@
                 <input type="text" name="userType"
                 <c:choose>
                         <c:when test="${user.userType eq 1}">
-                       value="超级管理员"
+                       value="管理员"
                 </c:when>
                         <c:when test="${user.userType eq 2}">
-                       value="社团创建者"
+                       value="普通用户"
+                </c:when><c:when test="${user.userType eq 0}">
+                       value="超级管理员"
                 </c:when>
-                        <c:when test="${user.userType eq 3}">
-                       value="社团管理员"
-                </c:when>
-                        <c:otherwise>
-                       value="社团成员"
-                </c:otherwise>
                 </c:choose>
 
                        disabled class="layui-input layui-disabled">

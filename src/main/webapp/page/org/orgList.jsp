@@ -26,10 +26,7 @@
 <body class="childrenBody">
 <blockquote class="layui-elem-quote news_search">
     <div class="layui-inline">
-        <div class="layui-input-inline">
-            <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
-        </div>
-        <a class="layui-btn search_btn">查询</a>
+        <div class="layui-form-mid" style="font-size: 20px">社团列表</div>
     </div>
     <div class="layui-inline">
         <a class="layui-btn layui-btn-normal newsAdd_btn">添加社团</a>
@@ -452,7 +449,7 @@
                             dataHtml += '<td style="color:#ff3225">审核不通过</td>';
                         }
                         dataHtml += '<td>'+timestampToTime(currData[i].gmtCreate)+'</td>'
-                            +'<td>'+currData[i].orgNum+'人/'+currData[i].orgNum+'人</td>';
+                            +'<td>'+currData[i].nowNum+'人/'+currData[i].orgNum+'人</td>';
                         if(currData[i].orgStatus == 1){
                             dataHtml += '<td style="color:green">启用</td>'
                                 +'<td><a class="layui-btn layui-btn-warm layui-btn-mini news_able" data-id="'+currData[i].id+'" data-state="0"><i class="iconfont icon-edit"></i> 禁用</a>';

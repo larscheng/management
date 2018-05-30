@@ -25,21 +25,12 @@
 </head>
 <body class="childrenBody">
 <blockquote class="layui-elem-quote news_search">
-    <%--<div class="layui-inline">--%>
-        <%--<div class="layui-input-inline">--%>
-            <%--<input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">--%>
-        <%--</div>--%>
-        <%--<a class="layui-btn search_btn">查询</a>--%>
-    <%--</div>--%>
+    <div class="layui-inline">
+        <div class="layui-form-mid" style="font-size: 20px">用户列表</div>
+    </div>
     <div class="layui-inline">
         <a class="layui-btn layui-btn-normal newsAdd_btn">添加用户</a>
     </div>
-    <%--<div class="layui-inline">--%>
-        <%--<a class="layui-btn recommend" style="background-color:#5FB878">推荐文章</a>--%>
-    <%--</div>--%>
-    <%--<div class="layui-inline">--%>
-        <%--<a class="layui-btn audit_btn">审核文章</a>--%>
-    <%--</div>--%>
     <div class="layui-inline">
         <a class="layui-btn layui-btn-danger batchDel">批量删除</a>
     </div>
@@ -56,18 +47,16 @@
             <col width="9%">
             <col width="9%">
             <col width="9%">
-            <col width="9%">
             <col width="15%">
         </colgroup>
         <thead>
         <tr>
             <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"></th>
-            <th style="text-align:left;">姓名</th>
+            <th>姓名</th>
             <th>账号</th>
             <th>性别</th>
             <th>邮箱</th>
             <th>电话</th>
-            <th>所属社团</th>
             <th>注册时间</th>
             <th>状态</th>
             <th>操作</th>
@@ -75,22 +64,7 @@
         </thead>
         <tbody class="news_content">
 
-        <tr>
-            <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
-                <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i class="layui-icon"></i></div>
-            </td>
-            <td align="left">css3用transition实现边框动画效果</td>
-            <td>请叫我马哥</td>
-            <td>审核通过</td>
-            <td>开放浏览</td>
-            <td><input type="checkbox" name="show" lay-skin="switch" lay-text="是|否" lay-filter="isShow">
-                <div class="layui-unselect layui-form-switch" lay-skin="_switch"><em>否</em><i></i></div>
-            </td>
-            <td>2017-04-14</td>
-            <td><a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i> 编辑</a><a
-                    class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i class="layui-icon"></i>
-                删除</a></td>
-        </tr>
+
         </tbody>
     </table>
 </div>
@@ -108,7 +82,7 @@
 
         //加载页面数据
         var newsData = '';
-        $.get(/*"/layui-admin/json/newsList.json",*/"/userList", function(data){
+        $.get(/*"/layui-admin/json/newsList.json",*/"/userList?userType=2", function(data){
             var newArray = [];
             data = JSON.parse(data);
 
@@ -372,7 +346,6 @@
                         }
                         dataHtml += '<td>'+currData[i].userMail+'</td>'
                                 +'<td>'+currData[i].userPhone+'</td>'
-                                +'<td>'+currData[i].orgName+'</td>'
                                 +'<td>'+timestampToTime(currData[i].gmtCreate)+'</td>';
                         if(currData[i].userStatus==1 ){
                             dataHtml += '<td>启用</td>'

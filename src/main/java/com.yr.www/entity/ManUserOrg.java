@@ -52,8 +52,9 @@ public class ManUserOrg implements Serializable {
         return oId;
     }
 
-    public void setoId(Integer oId) {
+    public ManUserOrg setoId(Integer oId) {
         this.oId = oId;
+        return this;
     }
 
     public Date getGmtCreate() {

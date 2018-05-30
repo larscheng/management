@@ -4,8 +4,11 @@ package com.yr.www.web;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.yr.www.entity.ManUser;
+import com.yr.www.entity.ManUserOrg;
 import com.yr.www.entity.dto.ManUserDto;
+import com.yr.www.enums.EnumUserType;
 import com.yr.www.mapper.ManUserMapper;
+import com.yr.www.mapper.ManUserOrgMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -35,6 +39,10 @@ public class ManUserController {
 
     @Autowired
     private ManUserMapper manUserMapper;
+    @Autowired
+    private ManUserOrgMapper manUserOrgMapper;
+
+
 
     /***
      * 个人信息
@@ -54,6 +62,12 @@ public class ManUserController {
     }
 
 
+    /***
+     * 用户编辑初始化
+     * @param modelAndView
+     * @param id
+     * @return
+     */
     @RequestMapping(value = {"/userInitUpdate"})
     public ModelAndView userInitUpdate(ModelAndView modelAndView,Integer id){
 
@@ -63,29 +77,69 @@ public class ManUserController {
         return modelAndView;
     }
 
+    /***
+     * 用户列表
+     * @param user
+     * @return
+     */
     @RequestMapping(value = {"/userList"})
     @ResponseBody
-    public Object userList(){
+    public Object userList(ManUser user){
 //        List<ManUserDto> users = manUserMapper.selectUserDtoList();
         List<ManUser> users = manUserMapper.selectList(new EntityWrapper<>());
+        if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(EnumUserType.ADMIN.getValue())){
+            users = users.stream().filter(user1 -> user1.getUserType().equals(user.getUserType())).collect(Collectors.toList());
+        }
+        if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(EnumUserType.USER.getValue())){
+            users = users.stream().filter(user1 -> user1.getUserType().equals(user.getUserType())).collect(Collectors.toList());
+        }
         return JSONObject.toJSON(users);
     }
 
-
+    /***
+     * 删除用户
+     * @param id
+     * @return
+     */
     @RequestMapping(value = {"/userDel"})
     @ResponseBody
     public Object userDel(Integer id){
+        ManUserOrg userOrg = new ManUserOrg();
+        userOrg.setuId(id);
+        ManUserOrg manUserOrg = manUserOrgMapper.selectOne(userOrg);
+        if (!ObjectUtils.isEmpty(manUserOrg)){
+            return JSONObject.toJSON("该用户已加入社团不可删除！！！");
+        }
         manUserMapper.deleteById(id);
         return JSONObject.toJSON("OK");
     }
 
+    /***
+     * 批量删除用户
+     * @param delIds
+     * @return
+     */
     @RequestMapping(value = {"/userDelAll"})
     @ResponseBody
     public Object userDelAll(Integer[] delIds){
+        for (Integer id:delIds
+             ) {
+            ManUserOrg userOrg = new ManUserOrg();
+            userOrg.setuId(id);
+            ManUserOrg manUserOrg = manUserOrgMapper.selectOne(userOrg);
+            if (!ObjectUtils.isEmpty(manUserOrg)){
+                return JSONObject.toJSON("用户已加入社团不可删除！！！");
+            }
+        }
         manUserMapper.deleteBatchIds(Arrays.asList(delIds));
         return JSONObject.toJSON("OK");
     }
 
+    /***
+     * 添加用户
+     * @param user
+     * @return
+     */
     @RequestMapping(value = {"/userAdd"})
     @ResponseBody
     public Object userAdd(ManUser user){
@@ -95,13 +149,31 @@ public class ManUserController {
         return JSONObject.toJSON("OK");
     }
 
+    /***
+     * 启用禁用用户
+     * @param user
+     * @return
+     */
     @RequestMapping(value = {"/userAble"})
     @ResponseBody
     public Object userAble(ManUser user){
+        ManUserOrg userOrg = new ManUserOrg();
+        userOrg.setuId(user.getId());
+        ManUserOrg manUserOrg = manUserOrgMapper.selectOne(userOrg);
+        if (!ObjectUtils.isEmpty(manUserOrg)){
+            return JSONObject.toJSON("该用户已加入社团不可操作！！！");
+        }
         manUserMapper.updateById(user);
         return JSONObject.toJSON("OK");
     }
 
+
+    /***
+     * 用户更新
+     * @param modelAndView
+     * @param user
+     * @return
+     */
     @RequestMapping(value = {"/userUpdate"})
     public ModelAndView userUpdate( ModelAndView modelAndView ,ManUser user){
         if (!ObjectUtils.isEmpty(user)){
@@ -112,6 +184,12 @@ public class ManUserController {
     }
 
 
+    /**
+     * 修改密码初始化
+     * @param modelAndView
+     * @param session
+     * @return
+     */
     @RequestMapping(value = {"/initChangePw"})
     public ModelAndView initChangePw(ModelAndView modelAndView, HttpSession session){
         ManUser user = (ManUser)session.getAttribute("sessionUser");
@@ -123,7 +201,13 @@ public class ManUserController {
         return modelAndView;
     }
 
-
+    /***
+     * 修改密码
+     * @param modelAndView
+     * @param user
+     * @param session
+     * @return
+     */
     @RequestMapping(value = {"/changePw"})
     public ModelAndView changePw( ModelAndView modelAndView ,ManUser user,HttpSession session){
         ManUser manUser = (ManUser)session.getAttribute("sessionUser");

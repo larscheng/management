@@ -92,6 +92,12 @@ public class ManApplyController {
         return JSONObject.toJSON(orgDtos);
     }
 
+
+    /***
+     * 审核入团申请
+     * @param apply
+     * @return
+     */
     @RequestMapping(value = {"/applyAudit"})
     @ResponseBody
     @Transactional

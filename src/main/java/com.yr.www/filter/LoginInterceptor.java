@@ -24,7 +24,7 @@ import java.util.Arrays;
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 
-    private static final String[] IGNORE_URI={"/initRegister","/","","/login"};   //填写XX.do
+    private static final String[] IGNORE_URI={"/initRegister","/","","/login","/register"};   //填写XX.do
 
 
     /**

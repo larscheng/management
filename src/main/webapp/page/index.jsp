@@ -153,9 +153,9 @@
     <c:when test="${sessionScope.sessionUser.userType eq 1}">
         <script type="text/javascript" src="${ctx}/layui-admin/js/nav.js"></script>
     </c:when>
-    <%--<c:when test="${sessionScope.sessionUser.userType eq 2}">--%>
-        <%--<script type="text/javascript" src="${ctx}/layui-admin/js/nav1.js"></script>--%>
-    <%--</c:when>--%>
+    <c:when test="${sessionScope.sessionUser.userType eq 0}">
+        <script type="text/javascript" src="${ctx}/layui-admin/js/nav.js"></script>
+    </c:when>
     <c:otherwise>
         <script type="text/javascript" src="${ctx}/layui-admin/js/nav1.js"></script>
     </c:otherwise>

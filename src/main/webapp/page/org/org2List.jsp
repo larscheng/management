@@ -34,10 +34,7 @@
 <body class="childrenBody">
 <blockquote class="layui-elem-quote news_search">
     <div class="layui-inline">
-        <div class="layui-input-inline">
-            <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
-        </div>
-        <a class="layui-btn search_btn">查询</a>
+        <div class="layui-form-mid" style="font-size: 20px">待审核社团列表</div>
     </div>
     <%--<div class="layui-inline">--%>
         <%--<a class="layui-btn layui-btn-normal newsAdd_btn">添加用户</a>--%>

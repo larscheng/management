@@ -36,6 +36,12 @@ public class ManNoticeController {
     @Autowired
     private ManNoticeMapper manNoticeMapper;
 
+
+    /***
+     * 添加公告
+     * @param notice
+     * @return
+     */
     @RequestMapping(value = {"/noticeAdd"})
     @ResponseBody
     public Object noticeAdd(ManNotice notice){

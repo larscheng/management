@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: zhengqilong
   Date: 2018/5/23
-  Time: 15:08
+  Time: 18:18
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -25,21 +25,29 @@
 </head>
 <body class="childrenBody">
 <blockquote class="layui-elem-quote news_search">
+    <%--<div class="layui-inline">--%>
+        <%--<div class="layui-input-inline">--%>
+            <%--<input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">--%>
+        <%--</div>--%>
+        <%--<a class="layui-btn search_btn">查询</a>--%>
+    <%--</div>--%>
+        <%--<div class="layui-inline">--%>
+        <%--<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>--%>
+        <%--</div>--%>
+        <div class="layui-inline">
+        <div class="layui-form-mid" style="font-size: 20px">管理员列表</div>
+        </div>
+        <c:if test="${sessionScope.sessionUser.userType eq 0}">
+
+
     <div class="layui-inline">
-        <div class="layui-form-mid" style="font-size: 20px">我加入的社团列表</div>
+        <a class="layui-btn layui-btn-normal newsAdd_btn">添加管理员</a>
     </div>
-    <%--<div class="layui-inline">--%>
-        <%--<a class="layui-btn layui-btn-normal newsAdd_btn">社团</a>--%>
-    <%--</div>--%>
-    <%--<div class="layui-inline">--%>
-        <%--<a class="layui-btn recommend" style="background-color:#5FB878">推荐文章</a>--%>
-    <%--</div>--%>
-    <%--<div class="layui-inline">--%>
-        <%--<a class="layui-及btn audit_btn">审核文章</a>--%>
-    <%--</div>--%>
-    <%--<div class="layui-inline">--%>
-        <%--<a class="layui-btn layui-btn-danger batchDel">批量删除</a>--%>
-    <%--</div>--%>
+
+    <div class="layui-inline">
+        <a class="layui-btn layui-btn-danger batchDel">批量删除</a>
+    </div>
+        </c:if>
     <%--<div class="layui-inline">--%>
         <%--<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>--%>
     <%--</div>--%>
@@ -50,19 +58,27 @@
             <col width="50">
             <col>
             <col width="9%">
-            <col width="15%">
-            <col width="15%">
-            <col width="15%">
+            <col width="9%">
+            <col width="9%">
+            <col width="9%">
+            <c:if test="${sessionScope.sessionUser.userType eq 0}">
+                        <col width="15%">
+            </c:if>
         </colgroup>
         <thead>
         <tr>
             <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose"></th>
-            <th>社团名称</th>
-            <th>社长</th>
-            <th>类型</th>
+            <th>姓名</th>
+            <th>账号</th>
+            <th>性别</th>
+            <th>邮箱</th>
+            <th>电话</th>
             <th>注册时间</th>
-            <th>社团人数</th>
-            <th>操作</th>
+            <th>状态</th>
+            <c:if test="${sessionScope.sessionUser.userType eq 0}">
+                <th>操作</th>
+            </c:if>
+
         </tr>
         </thead>
         <tbody class="news_content">
@@ -85,7 +101,7 @@
 
         //加载页面数据
         var newsData = '';
-        $.get(/*"/layui-admin/json/newsList.json",*/"/myOrgList", function(data){
+        $.get(/*"/layui-admin/json/newsList.json",*/"/userList?userType=1", function(data){
             var newArray = [];
             data = JSON.parse(data);
 
@@ -116,81 +132,14 @@
         })
 
         //查询
-        $(".search_btn").click(function(){
-            var newArray = [];
-            if($(".search_input").val() != ''){
-                var index = layer.msg('查询中，请稍候',{icon: 16,time:false,shade:0.8});
-                setTimeout(function(){
-                    $.ajax({
-                        url : "/layui-admin/json/newsList.json",
-                        type : "get",
-                        dataType : "json",
-                        success : function(data){
-                            if(window.sessionStorage.getItem("addNews")){
-                                var addNews = window.sessionStorage.getItem("addNews");
-                                newsData = JSON.parse(addNews).concat(data);
-                            }else{
-                                newsData = data;
-                            }
-                            for(var i=0;i<newsData.length;i++){
-                                var newsStr = newsData[i];
-                                var selectStr = $(".search_input").val();
-                                function changeStr(data){
-                                    var dataStr = '';
-                                    var showNum = data.split(eval("/"+selectStr+"/ig")).length - 1;
-                                    if(showNum > 1){
-                                        for (var j=0;j<showNum;j++) {
-                                            dataStr += data.split(eval("/"+selectStr+"/ig"))[j] + "<i style='color:#03c339;font-weight:bold;'>" + selectStr + "</i>";
-                                        }
-                                        dataStr += data.split(eval("/"+selectStr+"/ig"))[showNum];
-                                        return dataStr;
-                                    }else{
-                                        dataStr = data.split(eval("/"+selectStr+"/ig"))[0] + "<i style='color:#03c339;font-weight:bold;'>" + selectStr + "</i>" + data.split(eval("/"+selectStr+"/ig"))[1];
-                                        return dataStr;
-                                    }
-                                }
-                                //文章标题
-                                if(newsStr.newsName.indexOf(selectStr) > -1){
-                                    newsStr["newsName"] = changeStr(newsStr.newsName);
-                                }
-                                //发布人
-                                if(newsStr.newsAuthor.indexOf(selectStr) > -1){
-                                    newsStr["newsAuthor"] = changeStr(newsStr.newsAuthor);
-                                }
-                                //审核状态
-                                if(newsStr.newsStatus.indexOf(selectStr) > -1){
-                                    newsStr["newsStatus"] = changeStr(newsStr.newsStatus);
-                                }
-                                //浏览权限
-                                if(newsStr.newsLook.indexOf(selectStr) > -1){
-                                    newsStr["newsLook"] = changeStr(newsStr.newsLook);
-                                }
-                                //发布时间
-                                if(newsStr.newsTime.indexOf(selectStr) > -1){
-                                    newsStr["newsTime"] = changeStr(newsStr.newsTime);
-                                }
-                                if(newsStr.newsName.indexOf(selectStr)>-1 || newsStr.newsAuthor.indexOf(selectStr)>-1 || newsStr.newsStatus.indexOf(selectStr)>-1 || newsStr.newsLook.indexOf(selectStr)>-1 || newsStr.newsTime.indexOf(selectStr)>-1){
-                                    newArray.push(newsStr);
-                                }
-                            }
-                            newsData = newArray;
-                            newsList(newsData);
-                        }
-                    })
 
-                    layer.close(index);
-                },2000);
-            }else{
-                layer.msg("请输入需要查询的内容");
-            }
-        })
 
         //添加文章
         $(".newsAdd_btn").click(function(){
             var index = layui.layer.open({
-                title : "社团成员",
+                title : "添加用户",
                 type : 2,
-                content : "addOrg.jsp",
+                content : "addUser.jsp",
                 success : function(layero, index){
                     layui.layer.tips('点击此处返回文章列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
@@ -253,12 +202,11 @@
             var $checked = $('.news_list tbody input[type="checkbox"][name="checked"]:checked');
             if($checkbox.is(":checked")){
                 layer.confirm('确定删除选中的信息？',{icon:3, title:'提示信息'},function(index){
-                    var index = layer.msg('删除中，请稍候',{icon: 16,time:false,shade:0.8});
+
                     setTimeout(function(){
-                        //删除数据
                         $.ajax({
                             type: "post",
-                            url: "${ctx}/orgDelAll",
+                            url: "${ctx}/userDelAll",
                             data: {"delIds":arrayid},
                             traditional: true,
                             dataType: "json",
@@ -266,7 +214,7 @@
                                 if ("OK" == msg) {
                                     location.reload();
                                 } else{
-                                    layer.msg(msg)
+                                    alert(msg)
                                 }
 
                             },
@@ -279,10 +227,11 @@
                         });
                         layer.close(index);
                         layer.msg("删除成功");
-                    },2000);
+                    },1000);
                 })
+
             }else{
-                layer.msg("请选择需要删除的社团");
+                layer.msg("请选择需要删除的用户");
             }
         })
 
@@ -297,6 +246,7 @@
 
         //通过判断文章是否全部选中来确定全选按钮是否选中
         form.on("checkbox(choose)",function(data){
+
             var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]:not([name="show"])');
             var childChecked = $(data.elem).parents('table').find('tbody input[type="checkbox"]:not([name="show"]):checked')
             if(childChecked.length == child.length){
@@ -308,21 +258,20 @@
         })
 
         //是否展示
-        form.on('switch(isShow)', function(data){
-            var index = layer.msg('修改中，请稍候',{icon: 16,time:false,shade:0.8});
-            setTimeout(function(){
-                layer.close(index);
-                layer.msg("展示状态修改成功！");
-            },2000);
-        })
+//        form.on('switch(isShow)', function(data){
+//            var index = layer.msg('修改中，请稍候',{icon: 16,time:false,shade:0.8});
+//            setTimeout(function(){
+//                var _this = $(this);
+//
+//                console.log(_this.attr("data-id"));
+//                layer.close(index);
+//                layer.msg("展示状态修改成功！");
+//            },2000);
+//        })
 
         //操作
         $("body").on("click",".news_edit",function(){  //编辑
-            location.href="/orgInitUpdate?id="+$(this).attr("data-id")
-        })
-        //操作
-        $("body").on("click",".news_home",function(){  //编辑
-            location.href="/orgHome?id="+$(this).attr("data-id")
+            location.href="/userInitUpdate?id="+$(this).attr("data-id")
         })
 
         $("body").on("click",".news_collect",function(){  //收藏.
@@ -335,22 +284,21 @@
             }
         })
 
-        $("body").on("click",".news_quit",function(){  //删除
+        $("body").on("click",".news_del",function(){  //删除
             var _this = $(this);
-            layer.confirm('确定退出该社团？',{icon:3, title:'提示信息'},function(index){
+            layer.confirm('确定删除此信息？',{icon:3, title:'提示信息'},function(index){
 
                 $.ajax({
                     type: "post",
-                    url: "${ctx}/orgQuit",
-                    data: {"oId":_this.attr("data-id"),"uId":${sessionScope.sessionUser.id}},
+                    url: "${ctx}/userDel",
+                    data: {"id":_this.attr("data-id")},
                     async: true,
                     dataType: "json",
                     success: function (msg) {
                         if ("OK" == msg) {
-                            layer.msg("您已退出该社团")
                             location.reload();
                         } else{
-                            layer.msg(msg)
+                            alert(msg)
                         }
 
                     },
@@ -365,24 +313,22 @@
             });
         })
 
-
-
-        $("body").on("click",".news_able",function(){  //启用禁用
+        $("body").on("click",".news_able",function(){  //删除
             var _this = $(this);
-            layer.confirm('确定修改社团状态吗？',{icon:3, title:'提示信息'},function(index){
+            layer.confirm('确定修改用户状态吗？',{icon:3, title:'提示信息'},function(index){
                 //_this.parents("tr").remove();
                 console.log(_this.attr("data-id"))
                 $.ajax({
                     type: "post",
-                    url: "${ctx}/orgAble",
-                    data: {"id":_this.attr("data-id"),"orgStatus":_this.attr("data-state")},
+                    url: "${ctx}/userAble",
+                    data: {"id":_this.attr("data-id"),"userStatus":_this.attr("data-state")},
                     async: true,
                     dataType: "json",
                     success: function (msg) {
                         if ("OK" == msg) {
                             location.reload();
                         } else{
-                            layer.msg(msg)
+                            alert(msg)
                         }
 
                     },
@@ -409,32 +355,40 @@
                 if(currData.length != 0){
                     for(var i=0;i<currData.length;i++){
                         dataHtml += '<tr>'
-                            +'<td><input type="checkbox" name="checked" lay-skin="primary" value="'+currData[i].id+'" lay-filter="choose"></td>'
-                            +'<td>'+currData[i].orgName+'</td>'
+                            +'<td><input type="checkbox" name="checked" value="'+currData[i].id+'" lay-skin="primary" lay-filter="choose"></td>'
                             +'<td>'+currData[i].userName+'</td>'
-                            +'<td>'+currData[i].orgTypeName+'</td>';
-//
-//                        if(currData[i].auditStatus == 1){
-//                            dataHtml += '<td style="color:#ff6a33">未处理</td>';
-//                        }else  if(currData[i].auditStatus == 2){
-//                            dataHtml += '<td style="color:#8eff3a">审核通过</td>';
-//                        }else{
-//                            dataHtml += '<td style="color:#ff3225">审核不通过</td>';
-//                        }
-                        dataHtml += '<td>'+timestampToTime(currData[i].gmtCreate)+'</td>'
-                            +'<td>'+currData[i].nowNum+'人/'+currData[i].orgNum+'人</td>';
-//                        if(currData[i].orgStatus == 1){
-//                            dataHtml += '<td style="color:green">启用</td>'
-//                                +'<td><a class="layui-btn layui-btn-warm layui-btn-mini news_able" data-id="'+currData[i].id+'" data-state="0"><i class="iconfont icon-edit"></i> 禁用</a>';
-//                        }else{
-//                            dataHtml += '<td style="color:#ff3225">禁用</td>'
-//                                +'<td><a class="layui-btn layui-btn-mini news_able" data-id="'+currData[i].id+'" data-state="1"><i class="iconfont icon-edit"></i> 启用</a>';
-//                        }
+                            +'<td>'+currData[i].userCode+'</td>';
+                        if(currData[i].userSex == 1){
+                            dataHtml += '<td >男</td>';
+                        }else{
+                            dataHtml += '<td>女</td>';
+                        }
+                        dataHtml += '<td>'+currData[i].userMail+'</td>'
+                                +'<td>'+currData[i].userPhone+'</td>'
+                                +'<td>'+timestampToTime(currData[i].gmtCreate)+'</td>';
+                        if (${sessionScope.sessionUser.userType eq 0}){
+                            if(currData[i].userStatus==1 ){
+                                dataHtml += '<td>启用</td>'
+                                    +  '<td><a class="layui-btn layui-btn-danger layui-btn-mini news_able" data-id="'+currData[i].id+'" data-state="0"><i class="iconfont icon-edit"></i> 禁用</a>';
+                            }else{
+                                dataHtml += '<td>禁用</td>'
+                                    +  '<td><a class="layui-btn layui-btn-info layui-btn-mini news_able" data-state="1" data-id="'+currData[i].id+'"><i class="iconfont icon-edit"></i> 启用</a>';
+                            }
 
-                        dataHtml +=  '<td><a class="layui-btn layui-btn-normal layui-btn-mini news_home" data-id="'+currData[i].id+'"><i class="layui-icon"></i> 首页</a>'
-                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_quit" data-id="'+currData[i].id+'"><i class="layui-icon">&#xe640;</i> 退出</a>'
-                            +'</td>'
-                            +'</tr>';
+                            dataHtml +='<a class="layui-btn layui-btn-mini news_edit" data-id="'+currData[i].id+'"><i class="iconfont icon-edit"></i> 编辑</a>'
+                                // +  '<a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i class="layui-icon">&#xe600;</i> 收藏</a>'
+                                +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+currData[i].id+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
+                                +'</td>'
+                                +'</tr>';
+                        }else {
+                            if(currData[i].userStatus==1 ){
+                                dataHtml += '<td>启用</td>';
+                            }else{
+                                dataHtml += '<td>禁用</td>';
+                            }
+                        }
+
+
                     }
                 }else{
                     dataHtml = '<tr><td colspan="8">暂无数据</td></tr>';
@@ -473,3 +427,4 @@
 </script>
 </body>
 </html>
+
