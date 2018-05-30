@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yr.www.mapper.ManApplyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.yr.www.entity.ManApply">
+        <id column="id" property="id" />
+        <result column="o_id" property="oId" />
+        <result column="u_id" property="uId" />
+        <result column="apply_reason" property="applyReason" />
+        <result column="audit_status" property="auditStatus" />
+        <result column="audit_content" property="auditContent" />
+        <result column="gmt_create" property="gmtCreate" />
+    </resultMap>
+    <resultMap id="BaseResultDtoMap" type="com.yr.www.entity.dto.ManApplyDto">
+        <id column="id" property="id" />
+        <result column="o_id" property="oId" />
+        <result column="u_id" property="uId" />
+        <result column="apply_reason" property="applyReason" />
+        <result column="audit_status" property="auditStatus" />
+        <result column="audit_content" property="auditContent" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="org_name" property="orgName" />
+        <result column="user_name" property="userName" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, o_id AS oId, u_id AS uId, apply_reason AS applyReason, audit_status AS auditStatus, audit_content AS auditContent, gmt_create AS gmtCreate
+    </sql>
+
+
+
+    <select id="selectApplyDtoList" resultMap="BaseResultDtoMap">
+        SELECT
+            a.*, b.user_name,
+            c.org_name
+        FROM
+            man_apply a
+        INNER JOIN man_user b ON a.u_id = b.id
+        INNER JOIN man_org c ON a.o_id = c.id
+        WHERE 1=1
+        <if test="@Ognl@isNotEmpty(uId)">
+           AND a.u_id=#{uId}
+        </if>
+        <if test="@Ognl@isNotEmpty(oId)">
+            AND a.o_id=#{oId}
+        </if>
+        <if test="@Ognl@isNotEmpty(auditStatus)">
+            AND a.audit_status=#{auditStatus}
+        </if>
+        ORDER BY a.gmt_create DESC
+    </select>
+</mapper>
