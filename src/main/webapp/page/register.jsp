@@ -25,32 +25,50 @@
         <h3>社团管理系统注册</h3>
         <div class="m-login-warp">
             <form class="layui-form" id="loginForm" method="post">
+
                 <div class="layui-form-item">
-                    <input type="text"  name="userName" id="" lay-verify="required" placeholder="请输入真实姓名" autocomplete="off" class="layui-input">
+                    <label class="layui-form-label">真实姓名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="userName" class="layui-input " lay-verify="required" placeholder="请输入真实姓名">
+                    </div>
                 </div>
                 <div class="layui-form-item">
-                    <input type="text"  name="userCode" id="title" lay-verify="required|userCode" placeholder="请输入账号" autocomplete="off" class="layui-input">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="userMail" class="layui-input userEmail" lay-verify="email" placeholder="请输入邮箱">
+                    </div>
                 </div>
-                <%--<div class="layui-form-item">--%>
-                    <%--<input type="password" name="userPassword" id="password" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">--%>
-                <%--</div>--%>
-
-
-
+                <div class="layui-form-item">
+                    <label class="layui-form-label">性别</label>
+                    <div class="layui-input-block userSex">
+                        <input type="radio" name="userSex" value="1" title="男" checked>
+                        <input type="radio" name="userSex" value="2" title="女">
+                    </div>
+                </div>
 
                 <div class="layui-form-item">
-
-                        <input type="password" value="" name="userPassword" placeholder="请输入新密码" lay-verify="required|newPwd" id="oldPwd" class="layui-input pwd">
+                    <label class="layui-form-label">账号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="userCode" class="layui-input userName" lay-verify="required" placeholder="请输入账号">
+                    </div>
                 </div>
 
                 <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block">
+                        <input type="password" value="" name="userPassword" placeholder="请输入密码" lay-verify="required|newPwd" id="oldPwd" class="layui-input pwd">
 
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">确认密码</label>
+                    <div class="layui-input-block">
                         <input type="password" value="" placeholder="请确认密码" lay-verify="required|confirmPwd" class="layui-input pwd">
+                    </div>
                 </div>
 
-                <div class="layui-form-item">
 
-                </div>
+
                 <div class="layui-form-item m-login-btn">
                     <div class="layui-inline">
                         <button class="layui-btn layui-btn-normal" lay-submit lay-filter="register" <%--onclick="loginSubmit()"--%>>注册</button>

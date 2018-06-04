@@ -20,6 +20,7 @@
         <result column="notice_content" property="noticeContent" />
         <result column="gmt_create" property="gmtCreate" />
         <result column="user_name" property="userName" />
+        <result column="org_name" property="orgName" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -30,10 +31,12 @@
     <select id="selectDtoList" resultMap="BaseResultDtoMap">
         SELECT
             a.*,
-            b.user_name
+            b.user_name,
+            c.org_name
         FROM
             man_notice a
         INNER JOIN man_user b ON a.notice_auth = b.id
+        INNER JOIN man_org c ON  a.org_id = c.id
         WHERE
             a.org_id = #{orgId}
         ORDER BY a.gmt_create desc

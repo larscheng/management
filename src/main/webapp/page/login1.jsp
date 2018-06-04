@@ -17,45 +17,73 @@
     <title>后台登录</title>
     <link rel="stylesheet" type="text/css" href="${ctx}/layui-admin/layui/css/layui.css" />
     <link rel="stylesheet" type="text/css" href="${ctx}/layui-admin/css/login.css" />
-    <link href="${ctx}/css/login.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-<div class="login_box">
-    <div class="login_l_img"><img src="${ctx}/images/login-img.png" /></div>
-    <div class="login">
-        <div class="login_logo"><a href="#"><img src="${ctx}/images/login_logo.png" /></a></div>
-        <div class="login_name">
-            <p>社团管理系统</p>
+<div class="m-login-bg">
+    <div class="m-login">
+        <h3>社团管理系统登录</h3>
+        <div class="m-login-warp">
+            <%--<form class="layui-form" id="loginForm" method="post">--%>
+                <%--<div class="layui-form-item">--%>
+                    <%--<label class="layui-form-label">用户类型</label>--%>
+                    <%--<div class="layui-input-block">--%>
+                        <%--<input type="text" name="userCode" id="title" required lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+                <%--<div class="layui-form-item">--%>
+                    <%--<label class="layui-form-label">用户类型</label>--%>
+                    <%--<div class="layui-input-block">--%>
+                        <%--<input type="password" name="userPassword" id="password" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+                <%--<div class="layui-form-item">--%>
+                    <%--<label class="layui-form-label">用户类型</label>--%>
+                    <%--<div class="layui-input-block">--%>
+                        <%--<select name="userType" class="userGrade" lay-filter="userGrade">--%>
+
+                            <%--<option value="2">普通用户</option>--%>
+                            <%--<option value="1">管理员</option>--%>
+                        <%--</select>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+                <%--<div class="layui-form-item m-login-btn">--%>
+                    <%--<div class="layui-inline">--%>
+                        <%--<button class="layui-btn layui-btn-normal" lay-submit lay-filter="login" &lt;%&ndash;onclick="loginSubmit()"&ndash;%&gt;>登录</button>--%>
+                    <%--</div>--%>
+                    <%--<div class="layui-inline">--%>
+                        <%--<button type="button" class="layui-btn layui-btn-primary register">注册</button>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+            <%--</form>--%>
+            <form class="layui-form" id="loginForm" method="post">
+                <div class="layui-form-item">
+                    <input type="text" name="userCode" id="title" required lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-item">
+                    <input type="password" name="userPassword" id="password" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-form-item">
+                    <!--<div class="layui-inline">-->
+                    <!--<input type="text" name="verity" required lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input">-->
+                    <!--</div>-->
+                    <!--<div class="layui-inline">-->
+                    <!--<img class="verifyImg" onclick="this.src=this.src+'?c='+Math.random();" src="../images/login/yzm.jpg" />-->
+                    <!--</div>-->
+                </div>
+                <div class="layui-form-item m-login-btn">
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="login" <%--onclick="loginSubmit()"--%>>登录</button>
+                    </div>
+                    <div class="layui-inline">
+                        <button type="button" class="layui-btn layui-btn-primary register">注册</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <form class="layui-form" id="loginForm" method="post">
-            <div class="layui-form-item">
-                <input type="text" name="userCode" id="title" required lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-item">
-                <input type="password" name="userPassword" id="password" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-item">
-                <select name="userType" required lay-verify="required" class="userGrade" lay-filter="userGrade">
-                    <option value="">----请选择用户类型----</option>
-                    <option value="2">普通用户</option>
-                    <option value="1">管理员</option>
-                    <option value="0">超管</option>
-                </select>
-            </div>
-            <div class="layui-form-item m-login-btn" style="margin-left: 80px">
-                <div class="layui-inline">
-                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="login" <%--onclick="loginSubmit()"--%>>登录</button>
-                </div>
-                <div class="layui-inline">
-                    <button type="button" class="layui-btn layui-btn-primary register">注册</button>
-                </div>
-            </div>
-        </form>
+        <p class="copyright">Copyright 2018 by yangrui</p>
     </div>
-    <%--<div class="copyright">Copyright 2018 by yangrui</div>--%>
 </div>
-<p class="copyright">Copyright 2018 by yangrui</p>
 <script src="${ctx}/layui-admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 <script src="${ctx}/layui-admin/js/jquery-2.2.3.min.js" type="text/javascript" charset="utf-8"></script>
 <script>
@@ -78,7 +106,10 @@
 
         //监听提交
         form.on('submit(login)', function(data) {
-
+//            layer.alert(JSON.stringify(data.field), {
+//                title: '最终的提交信息'
+//            })
+//            return false;
             console.log($("#loginForm").serialize());
             window.sessionStorage.clear();
             var formData = new FormData($( "#loginForm" )[0]);  // 要求使用的html对象

@@ -31,9 +31,9 @@
     <div class="layui-inline">
         <a class="layui-btn layui-btn-normal newsAdd_btn">添加社团</a>
     </div>
-    <div class="layui-inline">
-        <a class="layui-btn layui-btn-normal aaaa">ceshi</a>
-    </div>
+    <%--<div class="layui-inline">--%>
+        <%--<a class="layui-btn layui-btn-normal aaaa">ceshi</a>--%>
+    <%--</div>--%>
     <%--<div class="layui-inline">--%>
         <%--<a class="layui-btn recommend" style="background-color:#5FB878">推荐文章</a>--%>
     <%--</div>--%>

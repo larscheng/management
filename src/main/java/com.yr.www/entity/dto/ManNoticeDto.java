@@ -52,6 +52,15 @@ public class ManNoticeDto {
     private Date gmtCreate;
 
     private String userName;
+    private String orgName;
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
 
     public String getUserName() {
         return userName;

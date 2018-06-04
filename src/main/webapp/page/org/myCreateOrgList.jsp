@@ -327,13 +327,16 @@
             location.href="/orgInitUpdate?id="+$(this).attr("data-id")
         })
         //操作
-        $("body").on("click",".news_home",function(){  //编辑
+        $("body").on("click",".news_home",function(){  //首页
             location.href="/orgHome?id="+$(this).attr("data-id")
+        })
+        $("body").on("click",".news_user",function(){  //成员管理
+            location.href="${ctx}/orgUserPage2?id="+$(this).attr("data-id")
         })
 
 
 
-        $("body").on("click",".news_pub",function(){  //删除
+        $("body").on("click",".news_pub",function(){  //发布心公告
             var _this = $(this);
             console.log(_this.attr("data-id"))
             window.sessionStorage.setItem("orgId",_this.attr("data-id"));
@@ -354,6 +357,10 @@
             layui.layer.full(index);
         })
 
+        $("body").on("click",".news_pub1",function(){  //公告管理
+            var _this = $(this);
+            location.href="${ctx}/noticeListInit?id="+_this.attr("data-id");
+        })
 
 
         $("body").on("click",".news_able",function(){  //启用禁用
@@ -422,7 +429,8 @@
 
                         dataHtml += '<td><a class="layui-btn layui-btn-normal layui-btn-mini news_home" data-id="'+currData[i].id+'"><i class="layui-icon"></i> 首页</a>'
                             + '<a class="layui-btn layui-btn-mini news_edit" data-id="'+currData[i].id+'"><i class="iconfont icon-edit"></i> 编辑</a>'
-                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_pub" data-id="'+currData[i].id+'"><i class="layui-icon "></i> 发布公告</a>'
+                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_user" data-id="'+currData[i].id+'"><i class="layui-icon "></i> 成员管理</a>'
+                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_pub1" data-id="'+currData[i].id+'"><i class="layui-icon "></i> 公告管理</a>'
                             +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_quit" data-id="'+currData[i].id+'"><i class="layui-icon "></i> 社团转让</a>'
                             +'</td>'
                             +'</tr>';

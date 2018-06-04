@@ -1,15 +1,10 @@
-var navs = [{
+var navs = [/*{
 	"title" : "后台首页",
 	"icon" : "icon-computer",
 	"href" : "",
 	"spread" : false
-},{
-    "title" : "社团列表",
-    "icon" : "icon-text",
-    "href" : "/page/org/ableOrgList.jsp",
-    "spread" : false
-},{
-    "title" : "我加入的社团",
+},*/{
+    "title" : "我的社团",
     "icon" : "&#xe61c;",
     "href" : "",
     "spread" : false,
@@ -28,7 +23,7 @@ var navs = [{
         }
     ]
 },{
-    "title" : "我创建的社团",
+    "title" : "我管理的社团",
     "icon" : "&#xe61c;",
     "href" : "",
     "spread" : false,
@@ -52,12 +47,17 @@ var navs = [{
             "spread" : false
         }
     ]
-}/*,{
-	"title" : "404页面",
-	"icon" : "&#xe61c;",
-	"href" : "page/404.html",
-	"spread" : false
 },{
+    "title" : "查看社团",
+    "icon" : "icon-text",
+    "href" : "/page/org/ableOrgList.jsp",
+    "spread" : false
+},{
+	"title" : "申请建团",
+	"icon" : "&#xe61c;",
+	"href" : "page/org/addOrg.jsp",
+	"spread" : false
+}/*,{
 	"title" : "系统基本参数",
 	"icon" : "&#xe631;",
 	"href" : "page/systemParameter/systemParameter.html",

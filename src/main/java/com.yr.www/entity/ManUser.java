@@ -103,8 +103,9 @@ public class ManUser implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
+    public ManUser setId(Integer id) {
         this.id = id;
+        return this;
     }
 
     public String getUserName() {
@@ -191,8 +192,9 @@ public class ManUser implements Serializable {
         return userType;
     }
 
-    public void setUserType(Integer userType) {
+    public ManUser setUserType(Integer userType) {
         this.userType = userType;
+        return this;
     }
 
     public Integer getUserStatus() {

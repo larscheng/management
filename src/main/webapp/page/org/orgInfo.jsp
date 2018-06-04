@@ -101,7 +101,7 @@
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">社长:&nbsp;&nbsp;&nbsp;&nbsp;${org.orgFounder}</label>
+            <label class="layui-form-label">社长:&nbsp;&nbsp;&nbsp;&nbsp;${org.userName}</label>
 
     </div>
 
@@ -116,6 +116,7 @@
             <button class="layui-btn" lay-submit="" lay-filter="addNews">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
+    </div>
     </div>
 </form>
 <script type="text/javascript" src="${ctx}/layui-admin/layui/layui.js"></script>

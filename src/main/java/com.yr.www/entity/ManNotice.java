@@ -56,8 +56,9 @@ public class ManNotice implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
+    public ManNotice setId(Integer id) {
         this.id = id;
+        return this;
     }
 
     public String getNoticeTitle() {

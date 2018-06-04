@@ -3,6 +3,7 @@ package com.yr.www.web;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.yr.www.common.ManMapStructMapper;
 import com.yr.www.entity.*;
 import com.yr.www.entity.dto.ManNoticeDto;
 import com.yr.www.entity.dto.ManOrgDto;
@@ -75,6 +76,23 @@ public class ManOrgController {
         modelAndView.setViewName("user/orgUserList");
         return modelAndView;
     }
+
+
+
+    /**
+     * 社长跳转到社团成员页
+     * @param modelAndView
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = {"/orgUserPage2"})
+    public ModelAndView orgUserPage2(ModelAndView modelAndView, Integer id){
+
+        modelAndView.addObject("id",id);
+        modelAndView.setViewName("org/orgPersonList");
+        return modelAndView;
+    }
+
 
     /***
      * 获取社团成员列表
@@ -154,7 +172,7 @@ public class ManOrgController {
         manUserOrg.setuId(uId);
         ManUserOrg userOrg = manUserOrgMapper.selectOne(manUserOrg);
         if (ObjectUtils.isEmpty(userOrg)){
-            return JSONObject.toJSON("您不是该社团成员！！！");
+            return JSONObject.toJSON("不存在该成员！！！");
         }else {
             manUserOrgMapper.deleteById(userOrg.getId());
             //删除申请记录
@@ -282,7 +300,9 @@ public class ManOrgController {
     public ModelAndView orgInitUpdate(ModelAndView modelAndView, Integer id){
 
         ManOrg manOrg = manOrgMapper.selectById(id);
-        modelAndView.addObject("org",manOrg);
+        ManOrgDto orgDto = ManMapStructMapper.INSTANCE.ManOrgPo2Dto(manOrg);
+        orgDto.setUserName(manUserMapper.selectById(manOrg.getOrgFounder()).getUserName());
+        modelAndView.addObject("org",orgDto);
         modelAndView.setViewName("org/orgInfo");
         return modelAndView;
     }
@@ -323,6 +343,7 @@ public class ManOrgController {
             manUserOrgs.forEach(manUserOrg -> orgIds.add(manUserOrg.getoId()));
             manOrgDtos= manOrgMapper.selectOrgDtoListByIds(orgIds);
             manOrgDtos.forEach(dto->dto.setOrgTypeName(EnumOrgType.toMap().get(dto.getOrgType())));
+            manOrgDtos.forEach(dto -> dto.setNowNum(manUserOrgMapper.selectCount(new EntityWrapper<>(new ManUserOrg().setoId(dto.getId())))));
         }
         return JSONObject.toJSON(manOrgDtos);
     }
@@ -336,7 +357,7 @@ public class ManOrgController {
     @ResponseBody
     public Object orgApply(ManApply apply){
         Integer nowNum = manUserOrgMapper.selectCount(new EntityWrapper<>(new ManUserOrg().setoId(apply.getoId())));
-        Integer orgNum = manOrgMapper.selectCount(new EntityWrapper<>(new ManOrg().setId(apply.getoId())));
+        Integer orgNum = manOrgMapper.selectById(apply.getoId()).getOrgNum();
         if (orgNum<=nowNum){
             return JSONObject.toJSON("抱歉！社团成员已满！");
         }

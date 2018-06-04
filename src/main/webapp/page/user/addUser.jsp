@@ -59,7 +59,7 @@
         <div class="layui-input-block">
             <select name="userType" class="userGrade" lay-filter="userGrade">
             <c:if test="${sessionScope.sessionUser.userType eq 0}">
-                <option value="4">普通用户</option>
+                <option value="2">普通用户</option>
                 <option value="1">管理员</option>
             </c:if>
                 <c:if test="${sessionScope.sessionUser.userType eq 1}">

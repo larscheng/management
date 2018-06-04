@@ -111,7 +111,7 @@ public class BaseController {
     @RequestMapping("/login")
     @ResponseBody
     public String login(ManUser user, HttpSession session){
-        ManUser manUser = manUserMapper.selectOne(new ManUser().setUserCode(user.getUserCode()));
+        ManUser manUser = manUserMapper.selectOne(new ManUser().setUserCode(user.getUserCode()).setUserType(user.getUserType()));
         if (ObjectUtils.isEmpty(manUser)){
             return "该用户不存在，请重新登录";
         }else if (manUser.getUserStatus().equals(EnumEnOrDis.DISABLED.getValue())){
