@@ -26,7 +26,7 @@
 <body class="childrenBody">
 <blockquote class="layui-elem-quote news_search">
     <div class="layui-inline">
-        <div class="layui-form-mid" style="font-size: 20px">社团列表</div>
+        <div class="layui-form-mid" style="font-size: 20px">近30天新增社团</div>
     </div>
     <div class="layui-inline">
         <a class="layui-btn layui-btn-normal newsAdd_btn">添加社团</a>
@@ -92,7 +92,7 @@
 
         //加载页面数据
         var newsData = '';
-        $.get(/*"/layui-admin/json/newsList.json",*/"/orgList?auditStatus=2", function(data){
+        $.get(/*"/layui-admin/json/newsList.json",*/"/newOrgList?auditStatus=2", function(data){
             var newArray = [];
             data = JSON.parse(data);
 
@@ -443,7 +443,7 @@
                                 +'<td><a class="layui-btn layui-btn-mini news_able" data-id="'+currData[i].id+'" data-state="1"><i class="iconfont icon-edit"></i> 启用</a>';
                         }
 
-                        dataHtml += '<a class="layui-btn layui-btn-normal layui-btn-mini news_home" data-id="'+currData[i].id+'"><i class="layui-icon ">&#xe60e;</i> 首页</a>'
+                        dataHtml +=  '<a class="layui-btn layui-btn-normal layui-btn-mini news_home" data-id="'+currData[i].id+'"><i class="layui-icon ">&#xe60e;</i> 首页</a>'
                             +  '<a class="layui-btn layui-btn-mini news_edit" data-id="'+currData[i].id+'"><i class="iconfont icon-edit"></i> 编辑</a>'
                             +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="'+currData[i].id+'"><i class="layui-icon">&#xe640;</i> 删除</a>'
                             +'</td>'

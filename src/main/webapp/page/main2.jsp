@@ -24,56 +24,36 @@
     <link rel="stylesheet" href="${ctx}/layui-admin/css/main.css" media="all" />
 </head>
 <body class="childrenBody">
-<div class="panel_box row">
+<div class="panel_box row" style="margin-left: 26%">
 
     <div class="panel col">
-        <a href="javascript:;" data-url="page/user/newUserList.jsp">
+        <a href="javascript:;" data-url="page/org/myOrgList.jsp">
             <div class="panel_icon" style="background-color:#FF5722;">
-                <i class="iconfont icon-dongtaifensishu" data-icon="icon-dongtaifensishu"></i>
+                <%--<i class="iconfont icon-dongtaifensishu" data-icon="icon-dongtaifensishu"></i>--%>
+                    <i class="layui-icon" data-icon="&#xe609;">&#xe609;</i>
             </div>
             <div class="panel_word userAll">
-                <span>${sessionScope.newUser}</span>
-                <cite>新增人数</cite>
+                <span>${sessionScope.myOrgNum}</span>
+                <cite>我加入的社团数</cite>
             </div>
         </a>
     </div>
     <div class="panel col">
-        <a href="javascript:;" data-url="page/user/userList.jsp">
+        <a href="javascript:;" data-url="page/org/myCreateOrgList.jsp">
             <div class="panel_icon" style="background-color:#009688;">
-                <i class="layui-icon" data-icon="&#xe613;">&#xe613;</i>
+                <i class="layui-icon" data-icon="&#xe612;">&#xe612;</i>
             </div>
             <div class="panel_word userAll">
-                <span>${sessionScope.userNum}</span>
-                <cite>用户总数</cite>
+                <span>${sessionScope.myCreateOrgNum}</span>
+                <cite>我管理的社团数</cite>
             </div>
         </a>
     </div>
+
     <div class="panel col">
-        <a href="javascript:;" data-url="page/user/admList.jsp">
-            <div class="panel_icon" style="background-color:#009688;">
-                <i class="layui-icon" data-icon="&#xe613;">&#xe613;</i>
-            </div>
-            <div class="panel_word userAll">
-                <span>${sessionScope.admNum}</span>
-                <cite>管理员总数</cite>
-            </div>
-        </a>
-    </div>
-    <div class="panel col">
-        <a href="javascript:;" data-url="page/org/newOrgList.jsp">
-            <div class="panel_icon">
-                <i class="layui-icon" data-icon="&#xe63a;">&#xe63a;</i>
-            </div>
-            <div class="panel_word newMessage">
-                <span>${sessionScope.newOrg}</span>
-                <cite>新增社团</cite>
-            </div>
-        </a>
-    </div>
-    <div class="panel col">
-        <a href="javascript:;" data-url="page/org/orgList.jsp">
+        <a href="javascript:;" data-url="page/org/ableOrgList.jsp">
             <div class="panel_icon" style="background-color:#5FB878;">
-                <i class="layui-icon" data-icon="&#xe64a;">&#xe64a;</i>
+                <i class="layui-icon" data-icon="&#xe60b;">&#xe60b;</i>
             </div>
             <div class="panel_word imgAll">
                 <span>${sessionScope.orgNum}</span>
@@ -81,27 +61,32 @@
             </div>
         </a>
     </div>
-    <div class="panel col">
-        <a href="javascript:;" data-url="page/org/org2List.jsp">
-            <div class="panel_icon" style="background-color:#F7B824;">
-                <i class="iconfont icon-wenben" data-icon="icon-wenben"></i>
-            </div>
-            <div class="panel_word waitNews">
-                <span>${sessionScope.org2Num}</span>
-                <cite>待审核社团</cite>
-            </div>
-        </a>
-    </div>
 
 </div>
+
+
 <%--<!--图表-->--%>
 <%--<div class="chart-panel panel panel-default" style="margin: auto; width: 80%">--%>
     <%--<div class="panel-body" id="chart" style="height: 400px;">--%>
     <%--</div>--%>
 <%--</div>--%>
 
+
 <script type="text/javascript" src="${ctx}/layui-admin/layui/layui.js"></script>
-<%--<script type="text/javascript" src="${ctx}/layui-admin/echarts/echarts.js"></script>--%>
-<script type="text/javascript" src="${ctx}/layui-admin/js/main.js"></script>
+<script>
+
+    layui.config({
+        base : "/layui-admin/js/"
+    }).use(['form','element','layer','jquery'],function(){
+        var form = layui.form(),
+            layer = parent.layer === undefined ? layui.layer : parent.layer,
+            element = layui.element(),
+            $ = layui.jquery;
+
+        $(".panel a").on("click",function(){
+            window.parent.addTab($(this));
+        })
+    })
+</script>
 </body>
 </html>

@@ -10,89 +10,130 @@ layui.config({
 		window.parent.addTab($(this));
 	})
 
-	//动态获取文章总数和待审核文章数量,最新文章
-	$.get("/layui-admin/json/newsList.json",
-		function(data){
-			var waitNews = [];
-			$(".allNews span").text(data.length);  //文章总数
-			for(var i=0;i<data.length;i++){
-				var newsStr = data[i];
-				if(newsStr["newsStatus"] == "待审核"){
-					waitNews.push(newsStr);
-				}
-			}
-			$(".waitNews span").text(waitNews.length);  //待审核文章
-			//加载最新文章
-			var hotNewsHtml = '';
-			for(var i=0;i<5;i++){
-				hotNewsHtml += '<tr>'
-		    	+'<td align="left">'+data[i].newsName+'</td>'
-		    	+'<td>'+data[i].newsTime+'</td>'
-		    	+'</tr>';
-			}
-			$(".hot_news").html(hotNewsHtml);
-		}
-	)
-
-	//图片总数
-	$.get("/layui-admin/json/images.json",
-		function(data){
-			$(".imgAll span").text(data.length);
-		}
-	)
-
-	//用户数
-	$.get("/layui-admin/json/usersList.json",
-		function(data){
-			$(".userAll span").text(data.length);
-		}
-	)
-
-	//新消息
-	$.get("/layui-admin/json/message.json",
-		function(data){
-			$(".newMessage span").text(data.length);
-		}
-	)
-
-
-	//数字格式化
-	$(".panel span").each(function(){
-		$(this).html($(this).text()>9999 ? ($(this).text()/10000).toFixed(2) + "<em>万</em>" : $(this).text());	
-	})
-
-	//系统基本参数
-	if(window.sessionStorage.getItem("systemParameter")){
-		var systemParameter = JSON.parse(window.sessionStorage.getItem("systemParameter"));
-		fillParameter(systemParameter);
-	}else{
-		$.ajax({
-			url : "/layui-admin/json/systemParameter.json",
-			type : "get",
-			dataType : "json",
-			success : function(data){
-				fillParameter(data);
-			}
-		})
-	}
-
-	//填充数据方法
- 	function fillParameter(data){
- 		//判断字段数据是否存在
- 		function nullData(data){
- 			if(data == '' || data == "undefined"){
- 				return "未定义";
- 			}else{
- 				return data;
- 			}
- 		}
- 		$(".version").text(nullData(data.version));      //当前版本
-		$(".author").text(nullData(data.author));        //开发作者
-		$(".homePage").text(nullData(data.homePage));    //网站首页
-		$(".server").text(nullData(data.server));        //服务器环境
-		$(".dataBase").text(nullData(data.dataBase));    //数据库版本
-		$(".maxUpload").text(nullData(data.maxUpload));    //最大上传限制
-		$(".userRights").text(nullData(data.userRights));//当前用户权限
- 	}
+    //
+    //
+    // //图表
+    // var myChart;
+    // require.config({
+    //     paths: {
+    //         echarts: '/layui-admin/echarts/'
+    //     }
+    // });
+    // require(
+    //     [
+    //         'echarts',
+    //         'echarts/chart/bar',
+    //         'echarts/chart/line',
+    //         'echarts/chart/map'
+    //     ],
+    //     function (ec) {
+    //         //--- 折柱 ---
+    //         myChart = ec.init(document.getElementById('chart'));
+    //         myChart.setOption(
+    //             {
+    //                 title: {
+    //                     text: "数据统计",
+    //                     textStyle: {
+    //                         color: "rgb(85, 85, 85)",
+    //                         fontSize: 18,
+    //                         fontStyle: "normal",
+    //                         fontWeight: "normal"
+    //                     }
+    //                 },
+    //                 tooltip: {
+    //                     trigger: "axis"
+    //                 },
+    //                 legend: {
+    //                     data: ["会员", "文章", "评论"],
+    //                     selectedMode: false,
+    //                 },
+    //                 toolbox: {
+    //                     show: true,
+    //                     feature: {
+    //                         dataView: {
+    //                             show: false,
+    //                             readOnly: true
+    //                         },
+    //                         magicType: {
+    //                             show: false,
+    //                             type: ["line", "bar", "stack", "tiled"]
+    //                         },
+    //                         restore: {
+    //                             show: true
+    //                         },
+    //                         saveAsImage: {
+    //                             show: true
+    //                         },
+    //                         mark: {
+    //                             show: false
+    //                         }
+    //                     }
+    //                 },
+    //                 calculable: false,
+    //                 xAxis: [
+    //                     {
+    //                         type: "category",
+    //                         boundaryGap: false,
+    //                         data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+    //                     }
+    //                 ],
+    //                 yAxis: [
+    //                     {
+    //                         type: "value"
+    //                     }
+    //                 ],
+    //                 grid: {
+    //                     x2: 30,
+    //                     x: 50
+    //                 },
+    //                 series: [
+    //                     {
+    //                         name: "会员",
+    //                         type: "line",
+    //                         smooth: true,
+    //                         itemStyle: {
+    //                             normal: {
+    //                                 areaStyle: {
+    //                                     type: "default"
+    //                                 }
+    //                             }
+    //                         },
+    //                         data: [10, 12, 21, 54, 260, 830, 710]
+    //                     },
+    //                     {
+    //                         name: "文章",
+    //                         type: "line",
+    //                         smooth: true,
+    //                         itemStyle: {
+    //                             normal: {
+    //                                 areaStyle: {
+    //                                     type: "default"
+    //                                 }
+    //                             }
+    //                         },
+    //                         data: [30, 182, 434, 791, 390, 30, 10]
+    //                     },
+    //                     {
+    //                         name: "评论",
+    //                         type: "line",
+    //                         smooth: true,
+    //                         itemStyle: {
+    //                             normal: {
+    //                                 areaStyle: {
+    //                                     type: "default"
+    //                                 },
+    //                                 color: "rgb(110, 211, 199)"
+    //                             }
+    //                         },
+    //                         data: [1320, 1132, 601, 234, 120, 90, 20]
+    //                     }
+    //                 ]
+    //             }
+    //         );
+    //     }
+    // );
+    // $(window).resize(function(){
+    //     myChart.resize();
+    // })
 
 })

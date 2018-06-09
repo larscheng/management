@@ -20,4 +20,12 @@ public interface ManUserMapper extends BaseMapper<ManUser> {
     List<ManUserDto> selectUserDtoList();
 
     List<ManUser> selectListByIds(@Param("userIds")List<Integer> userIds);
+
+    Integer countNewUser();
+
+    Integer countUserNum();
+
+    Integer countAdmNum();
+
+    List<ManUser> selectNewUserList();
 }

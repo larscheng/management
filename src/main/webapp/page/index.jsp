@@ -34,18 +34,18 @@
 
             <!-- 顶部右侧菜单 -->
             <ul class="layui-nav top_menu">
-                <li class="layui-nav-item showNotice" id="showNotice" pc>
-                    <a href="javascript:;"><i class="iconfont icon-gonggao"></i><cite>系统公告</cite></a>
-                </li>
-                <li class="layui-nav-item" mobile>
-                    <a href="javascript:;" data-url="page/user/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>设置</cite></a>
-                </li>
-                <li class="layui-nav-item" mobile>
-                    <a href="javascript:;"><i class="iconfont icon-loginout"></i> 退出</a>
-                </li>
-                <li class="layui-nav-item lockcms" pc>
-                    <a href="javascript:;"><i class="iconfont icon-lock1"></i><cite>锁屏</cite></a>
-                </li>
+                <%--<li class="layui-nav-item showNotice" id="showNotice" pc>--%>
+                    <%--<a href="javascript:;"><i class="iconfont icon-gonggao"></i><cite>系统公告</cite></a>--%>
+                <%--</li>--%>
+                <%--<li class="layui-nav-item" mobile>--%>
+                    <%--<a href="javascript:;" data-url="page/user/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>设置</cite></a>--%>
+                <%--</li>--%>
+                <%--<li class="layui-nav-item" mobile>--%>
+                    <%--<a href="javascript:;"><i class="iconfont icon-loginout"></i> 退出</a>--%>
+                <%--</li>--%>
+                <%--<li class="layui-nav-item lockcms" pc>--%>
+                    <%--<a href="javascript:;"><i class="iconfont icon-lock1"></i><cite>锁屏</cite></a>--%>
+                <%--</li>--%>
                 <li class="layui-nav-item" pc>
                     <a href="javascript:;">
                         <img src="${ctx}/layui-admin/images/face.jpg" class="layui-circle" width="35" height="35">
@@ -76,7 +76,18 @@
             </ul>
             <div class="layui-tab-content clildFrame">
                 <div class="layui-tab-item layui-show">
-                    <iframe src="${ctx}/page/main.jsp"></iframe>
+                    <c:choose>
+                        <c:when test="${sessionScope.userType eq 0}">
+                            <iframe src="${ctx}/page/main.jsp"></iframe>
+                        </c:when>
+                        <c:when test="${sessionScope.userType eq 1}">
+                            <iframe src="${ctx}/page/main.jsp"></iframe>
+                        </c:when>
+                        <c:when test="${sessionScope.userType eq 2}">
+                            <iframe src="${ctx}/page/main2.jsp"></iframe>
+                        </c:when>
+                    </c:choose>
+
                 </div>
             </div>
         </div>

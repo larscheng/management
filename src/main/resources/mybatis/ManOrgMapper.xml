@@ -37,6 +37,15 @@
         SELECT a.*,b.user_name FROM man_org a LEFT JOIN  man_user b ON a.org_founder=b.id order by a.org_status desc
     </select>
 
+
+    <select id="selectNewOrgDtoList" resultMap="BaseResultDtoMap">
+        SELECT a.*,b.user_name FROM man_org a
+        LEFT JOIN  man_user b ON a.org_founder=b.id
+        WHERE
+         DATE_SUB(CURDATE(), INTERVAL 30 DAY)  <![CDATA[<=]]> date(a.gmt_create)
+         order by a.org_status desc
+    </select>
+
     <select id="selectOrgDtoListByIds" resultMap="BaseResultDtoMap">
         SELECT a.*,b.user_name FROM man_org a LEFT JOIN  man_user b ON a.org_founder=b.id
         <if test="@Ognl@isNotEmpty(orgIds)">
@@ -49,4 +58,32 @@
          order by a.org_status desc
     </select>
 
+
+    <select id="countNewOrg" resultType="Integer">
+        SELECT
+        count(*)
+        FROM
+        man_org
+        WHERE
+        DATE_SUB(CURDATE(), INTERVAL 30 DAY)  <![CDATA[<=]]> date(gmt_create)
+        AND  audit_status = 2
+    </select>
+
+    <select id="countOrgNum" resultType="Integer">
+        SELECT
+        count(*)
+        FROM
+        man_org
+        WHERE
+        audit_status = 2
+    </select>
+
+    <select id="countOrg2Num" resultType="Integer">
+        SELECT
+        count(*)
+        FROM
+        man_org
+        WHERE
+        audit_status = 1
+    </select>
 </mapper>

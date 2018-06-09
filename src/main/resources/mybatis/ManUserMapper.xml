@@ -12,12 +12,9 @@
         <result column="user_mail" property="userMail" />
         <result column="user_phone" property="userPhone" />
         <result column="user_birthday" property="userBirthday" />
-        <result column="user_address" property="userAddress" />
-        <result column="user_hobby" property="userHobby" />
         <result column="user_evaluate" property="userEvaluate" />
         <result column="user_type" property="userType" />
         <result column="user_status" property="userStatus" />
-        <result column="user_org" property="userOrg" />
         <result column="gmt_create" property="gmtCreate" />
         <result column="gmt_modify" property="gmtModify" />
     </resultMap>
@@ -70,5 +67,45 @@
             a.user_org = b.id
         ORDER BY
             a.user_status DESC
+    </select>
+
+
+    <select id="countNewUser" resultType="Integer">
+        SELECT
+        count(*)
+        FROM
+        man_user
+        WHERE
+        DATE_SUB(CURDATE(), INTERVAL 30 DAY)  <![CDATA[<=]]> date(gmt_create)
+        AND user_type = 2
+    </select>
+
+    <select id="selectNewUserList" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        man_user
+        WHERE
+        DATE_SUB(CURDATE(), INTERVAL 30 DAY)  <![CDATA[<=]]> date(gmt_create)
+        AND user_type = 2
+        ORDER  BY gmt_create DESC
+    </select>
+
+    <select id="countUserNum" resultType="Integer">
+        SELECT
+        count(*)
+        FROM
+        man_user
+        WHERE
+        user_type = 2
+    </select>
+
+    <select id="countAdmNum" resultType="Integer">
+        SELECT
+        count(*)
+        FROM
+        man_user
+        WHERE
+        user_type in (0,1)
     </select>
 </mapper>

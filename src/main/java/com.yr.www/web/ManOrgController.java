@@ -48,10 +48,37 @@ public class ManOrgController {
     @Autowired
     private ManNoticeMapper manNoticeMapper;
 
+
+    /***
+     * 查看社团列表
+     * @param org
+     * @return
+     */
     @RequestMapping(value = {"/orgList"})
     @ResponseBody
     public Object userList(ManOrg org){
         List<ManOrgDto> orgs = manOrgMapper.selectOrgDtoList();
+        orgs.forEach(dto->dto.setOrgTypeName(EnumOrgType.toMap().get(dto.getOrgType())));
+        if (!ObjectUtils.isEmpty(org.getAuditStatus())){
+            orgs=orgs.stream().filter(dto -> dto.getAuditStatus().equals(org.getAuditStatus())).collect(Collectors.toList());
+        }
+        if (!ObjectUtils.isEmpty(org.getOrgFounder())){
+            orgs=orgs.stream().filter(dto -> dto.getOrgFounder().equals(org.getOrgFounder())).collect(Collectors.toList());
+        }
+        orgs.forEach(dto -> dto.setNowNum(manUserOrgMapper.selectCount(new EntityWrapper<>(new ManUserOrg().setoId(dto.getId())))));
+        return JSONObject.toJSON(orgs);
+    }
+
+
+    /***
+     * 查看社团列表
+     * @param org
+     * @return
+     */
+    @RequestMapping(value = {"/newOrgList"})
+    @ResponseBody
+    public Object newOrgList(ManOrg org){
+        List<ManOrgDto> orgs = manOrgMapper.selectNewOrgDtoList();
         orgs.forEach(dto->dto.setOrgTypeName(EnumOrgType.toMap().get(dto.getOrgType())));
         if (!ObjectUtils.isEmpty(org.getAuditStatus())){
             orgs=orgs.stream().filter(dto -> dto.getAuditStatus().equals(org.getAuditStatus())).collect(Collectors.toList());

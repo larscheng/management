@@ -2,10 +2,15 @@ package com.yr.www.web;
 
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.yr.www.entity.ManOrg;
 import com.yr.www.entity.ManUser;
+import com.yr.www.entity.ManUserOrg;
 import com.yr.www.enums.EnumEnOrDis;
 import com.yr.www.enums.EnumUserType;
+import com.yr.www.mapper.ManOrgMapper;
 import com.yr.www.mapper.ManUserMapper;
+import com.yr.www.mapper.ManUserOrgMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
@@ -31,7 +36,10 @@ public class BaseController {
 
     @Autowired
     private ManUserMapper manUserMapper;
-
+    @Autowired
+    private ManOrgMapper manOrgMapper;
+    @Autowired
+    private ManUserOrgMapper manUserOrgMapper;
 
     /**
      * 跳转登录
@@ -67,6 +75,26 @@ public class BaseController {
         if (ObjectUtils.isEmpty(user)){
             return "redirect:/";
         }
+        //近三十天审核通过的社团（新增社团）
+        request.getSession().setAttribute("newOrg",manOrgMapper.countNewOrg());
+        //近30天新注册的用户数（新增人数）
+        request.getSession().setAttribute("newUser",manUserMapper.countNewUser());
+        //用户总数（用户类型）
+        request.getSession().setAttribute("userNum",manUserMapper.countUserNum());
+        //管理员总数
+        request.getSession().setAttribute("admNum",manUserMapper.countAdmNum());
+        //社团总数
+        request.getSession().setAttribute("orgNum", manOrgMapper.countOrgNum());
+        //待审核社团
+        request.getSession().setAttribute("org2Num",manOrgMapper.countOrg2Num());
+
+
+        //我加入的社团数
+        request.getSession().setAttribute("myOrgNum",manUserOrgMapper.selectCount(new EntityWrapper<ManUserOrg>().and("u_id={0}",user.getId())));
+        //我管理的社团数
+        request.getSession().setAttribute("myCreateOrgNum",manOrgMapper.selectCount(new EntityWrapper<ManOrg>()
+                .and("org_founder={0}",user.getId())
+                .and("audit_status={0}",2)));
         return "index";
     }
 

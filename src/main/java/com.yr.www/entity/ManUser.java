@@ -60,13 +60,13 @@ public class ManUser implements Serializable {
     /**
      * 家庭地址
      */
-    @TableField("user_address")
-    private String userAddress;
+//    @TableField("user_address")
+//    private String userAddress;
     /**
      * 兴趣爱好
      */
-    @TableField("user_hobby")
-    private String userHobby;
+//    @TableField("user_hobby")
+//    private String userHobby;
     /**
      * 自我评价
      */
@@ -85,8 +85,8 @@ public class ManUser implements Serializable {
     /**
      * 所属社团id
      */
-    @TableField("user_org")
-    private Integer userOrg;
+//    @TableField("user_org")
+//    private Integer userOrg;
     /**
      * 创建时间
      */
@@ -163,22 +163,22 @@ public class ManUser implements Serializable {
     public void setUserBirthday(String userBirthday) {
         this.userBirthday = userBirthday;
     }
-
-    public String getUserAddress() {
-        return userAddress;
-    }
-
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
-    }
-
-    public String getUserHobby() {
-        return userHobby;
-    }
-
-    public void setUserHobby(String userHobby) {
-        this.userHobby = userHobby;
-    }
+//
+//    public String getUserAddress() {
+//        return userAddress;
+//    }
+//
+//    public void setUserAddress(String userAddress) {
+//        this.userAddress = userAddress;
+//    }
+//
+//    public String getUserHobby() {
+//        return userHobby;
+//    }
+//
+//    public void setUserHobby(String userHobby) {
+//        this.userHobby = userHobby;
+//    }
 
     public String getUserEvaluate() {
         return userEvaluate;
@@ -205,13 +205,13 @@ public class ManUser implements Serializable {
         this.userStatus = userStatus;
     }
 
-    public Integer getUserOrg() {
-        return userOrg;
-    }
-
-    public void setUserOrg(Integer userOrg) {
-        this.userOrg = userOrg;
-    }
+//    public Integer getUserOrg() {
+//        return userOrg;
+//    }
+//
+//    public void setUserOrg(Integer userOrg) {
+//        this.userOrg = userOrg;
+//    }
 
     public Date getGmtCreate() {
         return gmtCreate;
@@ -229,25 +229,5 @@ public class ManUser implements Serializable {
         this.gmtModify = gmtModify;
     }
 
-    @Override
-    public String toString() {
-        return "ManUser{" +
-        "id=" + id +
-        ", userName=" + userName +
-        ", userSex=" + userSex +
-        ", userCode=" + userCode +
-        ", userPassword=" + userPassword +
-        ", userMail=" + userMail +
-        ", userPhone=" + userPhone +
-        ", userBirthday=" + userBirthday +
-        ", userAddress=" + userAddress +
-        ", userHobby=" + userHobby +
-        ", userEvaluate=" + userEvaluate +
-        ", userType=" + userType +
-        ", userStatus=" + userStatus +
-        ", userOrg=" + userOrg +
-        ", gmtCreate=" + gmtCreate +
-        ", gmtModify=" + gmtModify +
-        "}";
-    }
+
 }

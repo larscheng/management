@@ -20,4 +20,12 @@ public interface ManOrgMapper extends BaseMapper<ManOrg> {
     List<ManOrgDto> selectOrgDtoList();
 
     List<ManOrgDto> selectOrgDtoListByIds(@Param("orgIds") List<Integer> orgIds);
+
+    Integer countNewOrg();
+
+    Integer countOrg2Num();
+
+    Integer countOrgNum();
+
+    List<ManOrgDto> selectNewOrgDtoList();
 }

@@ -87,10 +87,38 @@ public class ManUserController {
     public Object userList(ManUser user){
 //        List<ManUserDto> users = manUserMapper.selectUserDtoList();
         List<ManUser> users = manUserMapper.selectList(new EntityWrapper<>());
+        //adm
         if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(EnumUserType.ADMIN.getValue())){
             users = users.stream().filter(user1 -> user1.getUserType().equals(user.getUserType())).collect(Collectors.toList());
         }
+        //user
         if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(EnumUserType.USER.getValue())){
+            users = users.stream().filter(user1 -> user1.getUserType().equals(user.getUserType())).collect(Collectors.toList());
+        }
+        return JSONObject.toJSON(users);
+    }
+
+
+
+    /***
+     * 近一个月新增用户列表
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = {"/newUserList"})
+    @ResponseBody
+    public Object newUserList(ManUser user){
+//        List<ManUserDto> users = manUserMapper.selectUserDtoList();
+
+        List<ManUser> users = new ArrayList<>();
+        //adm总数
+        if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(EnumUserType.ADMIN.getValue())){
+            users = manUserMapper.selectList(new EntityWrapper<>(user));
+            users = users.stream().filter(user1 -> user1.getUserType().equals(user.getUserType())).collect(Collectors.toList());
+        }
+        //user近30天
+        if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(EnumUserType.USER.getValue())){
+            users = manUserMapper.selectNewUserList();
             users = users.stream().filter(user1 -> user1.getUserType().equals(user.getUserType())).collect(Collectors.toList());
         }
         return JSONObject.toJSON(users);
