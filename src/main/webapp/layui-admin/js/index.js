@@ -8,6 +8,9 @@ layui.config({
 		$ = layui.jquery;
 		tab = layui.bodyTab();
 
+
+
+
 	//锁屏
 	function lockPage(){
 		layer.open({
@@ -63,6 +66,9 @@ layui.config({
 		addTab($(this));
 		$(this).parent("li").siblings().removeClass("layui-nav-itemed");
 	})
+
+
+
 
 	//公告层
 	// function showNotice(){
@@ -152,3 +158,5 @@ function donation(){
 		}]
 	})
 }
+
+

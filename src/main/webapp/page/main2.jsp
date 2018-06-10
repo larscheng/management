@@ -24,7 +24,8 @@
     <link rel="stylesheet" href="${ctx}/layui-admin/css/main.css" media="all" />
 </head>
 <body class="childrenBody">
-<div class="panel_box row" style="margin-left: 26%">
+<div class="panel_box row" style="margin-left: 20%">
+
 
     <div class="panel col">
         <a href="javascript:;" data-url="page/org/myOrgList.jsp">
@@ -34,7 +35,7 @@
             </div>
             <div class="panel_word userAll">
                 <span>${sessionScope.myOrgNum}</span>
-                <cite>我加入的社团数</cite>
+                <cite>加入的社团</cite>
             </div>
         </a>
     </div>
@@ -45,11 +46,22 @@
             </div>
             <div class="panel_word userAll">
                 <span>${sessionScope.myCreateOrgNum}</span>
-                <cite>我管理的社团数</cite>
+                <cite>管理的社团</cite>
             </div>
         </a>
     </div>
-
+    <div class="panel col">
+        <a href="javascript:;" data-url="page/notice/noticeAllList.jsp">
+            <div class="panel_icon" style="background-color:#ffbb57;">
+                <%--<i class="iconfont icon-dongtaifensishu" data-icon="icon-dongtaifensishu"></i>--%>
+                <i class="layui-icon" data-icon="&#xe621;">&#xe621;</i>
+            </div>
+            <div class="panel_word userAll">
+                <span>${sessionScope.myNoticeNum}</span>
+                <cite>社团公告</cite>
+            </div>
+        </a>
+    </div>
     <div class="panel col">
         <a href="javascript:;" data-url="page/org/ableOrgList.jsp">
             <div class="panel_icon" style="background-color:#5FB878;">

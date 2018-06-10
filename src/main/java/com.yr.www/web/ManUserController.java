@@ -88,12 +88,12 @@ public class ManUserController {
 //        List<ManUserDto> users = manUserMapper.selectUserDtoList();
         List<ManUser> users = manUserMapper.selectList(new EntityWrapper<>());
         //adm
-        if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(EnumUserType.ADMIN.getValue())){
-            users = users.stream().filter(user1 -> user1.getUserType().equals(user.getUserType())).collect(Collectors.toList());
+        if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(EnumUserType.adm.getValue())){
+            users = users.stream().filter(user1 -> user1.getUserType().equals(EnumUserType.adm.getValue())).collect(Collectors.toList());
         }
         //user
-        if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(EnumUserType.USER.getValue())){
-            users = users.stream().filter(user1 -> user1.getUserType().equals(user.getUserType())).collect(Collectors.toList());
+        if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(EnumUserType.orgAdm.getValue())){
+            users = users.stream().filter(user1 -> user1.getUserType().equals(EnumUserType.orgAdm.getValue())||user1.getUserType().equals(EnumUserType.user.getValue())).collect(Collectors.toList());
         }
         return JSONObject.toJSON(users);
     }
@@ -112,14 +112,15 @@ public class ManUserController {
 
         List<ManUser> users = new ArrayList<>();
         //adm总数
-        if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(EnumUserType.ADMIN.getValue())){
+        if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(1)){
             users = manUserMapper.selectList(new EntityWrapper<>(user));
             users = users.stream().filter(user1 -> user1.getUserType().equals(user.getUserType())).collect(Collectors.toList());
         }
         //user近30天
-        if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(EnumUserType.USER.getValue())){
+        if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(2)){
             users = manUserMapper.selectNewUserList();
-            users = users.stream().filter(user1 -> user1.getUserType().equals(user.getUserType())).collect(Collectors.toList());
+            users = users.stream().filter(user1 -> user1.getUserType().equals(user.getUserType()))
+                    .collect(Collectors.toList());
         }
         return JSONObject.toJSON(users);
     }

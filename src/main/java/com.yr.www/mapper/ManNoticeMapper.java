@@ -4,6 +4,7 @@ import com.yr.www.entity.ManNotice;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.yr.www.entity.dto.ManNoticeDto;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -17,4 +18,6 @@ import java.util.List;
 public interface ManNoticeMapper extends BaseMapper<ManNotice> {
 
     List<ManNoticeDto> selectDtoList(ManNotice manNotice);
+
+    List<ManNoticeDto> selectDtoListByOid(Integer oid);
 }

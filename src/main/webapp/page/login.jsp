@@ -26,7 +26,7 @@
     <div class="login">
         <div class="login_logo"><a href="#"><img src="${ctx}/images/login_logo.png" /></a></div>
         <div class="login_name">
-            <p>社团管理系统</p>
+            <p>商洛学院社团管理系统</p>
         </div>
         <form class="layui-form" id="loginForm" method="post">
             <div class="layui-form-item">
@@ -38,9 +38,10 @@
             <div class="layui-form-item">
                 <select name="userType" required lay-verify="required" class="userGrade" lay-filter="userGrade">
                     <option value="">----请选择用户类型----</option>
-                    <option value="2">普通用户</option>
+                    <option value="3">普通用户</option>
+                    <option value="2">社长</option>
                     <option value="1">管理员</option>
-                    <option value="0">超管</option>
+                    <option value="0">超级管理管</option>
                 </select>
             </div>
             <div class="layui-form-item m-login-btn" style="margin-left: 80px">

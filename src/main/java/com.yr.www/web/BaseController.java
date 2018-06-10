@@ -6,21 +6,28 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.yr.www.entity.ManOrg;
 import com.yr.www.entity.ManUser;
 import com.yr.www.entity.ManUserOrg;
+import com.yr.www.entity.dto.ManNoticeDto;
 import com.yr.www.enums.EnumEnOrDis;
 import com.yr.www.enums.EnumUserType;
+import com.yr.www.mapper.ManNoticeMapper;
 import com.yr.www.mapper.ManOrgMapper;
 import com.yr.www.mapper.ManUserMapper;
 import com.yr.www.mapper.ManUserOrgMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -40,7 +47,8 @@ public class BaseController {
     private ManOrgMapper manOrgMapper;
     @Autowired
     private ManUserOrgMapper manUserOrgMapper;
-
+    @Autowired
+    private ManNoticeMapper manNoticeMapper;
     /**
      * 跳转登录
      * @param modelAndView
@@ -54,15 +62,18 @@ public class BaseController {
 
     /***
      * 注销
-     * @param modelAndView
+     * @param
      * @param session
      * @return
      */
     @RequestMapping(value = {"/logout"})
-    public ModelAndView logout(ModelAndView modelAndView,HttpSession session){
+    public void logout( HttpSession session, HttpServletResponse response){
         session.invalidate();
-        modelAndView.setViewName("redirect:/");
-        return modelAndView;
+        try {
+            response.getWriter().write("<script>window.open('/','_top')</script>");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -95,9 +106,29 @@ public class BaseController {
         request.getSession().setAttribute("myCreateOrgNum",manOrgMapper.selectCount(new EntityWrapper<ManOrg>()
                 .and("org_founder={0}",user.getId())
                 .and("audit_status={0}",2)));
+        //我的最近公告
+        request.getSession().setAttribute("myNoticeNum",getManNoticeDtos(user.getId()).size());
+
         return "index";
     }
 
+    public List<ManNoticeDto> getManNoticeDtos(Integer id) {
+        //查询orgid
+        List<Integer> orgIds = new ArrayList<>();
+        List<ManNoticeDto> noticeDtos  = new ArrayList<>();
+        List<ManUserOrg> manUserOrgs = manUserOrgMapper.selectListByUid(id);
+        if (CollectionUtils.isEmpty(manUserOrgs)){
+            return noticeDtos;
+        }
+        manUserOrgs.forEach(manUserOrg -> orgIds.add(manUserOrg.getoId()));
+
+        //根据oid查询近30天的公告
+        for (Integer oid:orgIds
+                ) {
+            noticeDtos.addAll(manNoticeMapper.selectDtoListByOid(oid));
+        }
+        return noticeDtos;
+    }
 
     /**
      * 注册初始化页面
@@ -123,7 +154,7 @@ public class BaseController {
                 return JSONObject.toJSON("该用户已存在！！！");
             }
         }
-        user.setUserType(EnumUserType.USER.getValue());
+        user.setUserType(EnumUserType.user.getValue());
         user.setGmtCreate(new Date());
         manUserMapper.insert(user);
         return JSONObject.toJSON("OK");

@@ -97,8 +97,9 @@ public class ManOrg implements Serializable {
         return orgFounder;
     }
 
-    public void setOrgFounder(Integer orgFounder) {
+    public ManOrg setOrgFounder(Integer orgFounder) {
         this.orgFounder = orgFounder;
+        return this;
     }
 
     public Integer getOrgType() {

@@ -77,7 +77,7 @@
         man_user
         WHERE
         DATE_SUB(CURDATE(), INTERVAL 30 DAY)  <![CDATA[<=]]> date(gmt_create)
-        AND user_type = 2
+        AND user_type in(2,3)
     </select>
 
     <select id="selectNewUserList" resultMap="BaseResultMap">
@@ -97,7 +97,7 @@
         FROM
         man_user
         WHERE
-        user_type = 2
+        user_type in (2,3)
     </select>
 
     <select id="countAdmNum" resultType="Integer">
@@ -106,6 +106,6 @@
         FROM
         man_user
         WHERE
-        user_type in (0,1)
+        user_type = 1
     </select>
 </mapper>

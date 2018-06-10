@@ -41,4 +41,19 @@
             a.org_id = #{orgId}
         ORDER BY a.gmt_create desc
     </select>
+
+    <select id="selectDtoListByOid" resultMap="BaseResultDtoMap">
+        SELECT
+            a.*,
+            b.user_name,
+            c.org_name
+        FROM
+            man_notice a
+        INNER JOIN man_user b ON a.notice_auth = b.id
+        INNER JOIN man_org c ON  a.org_id = c.id
+        WHERE
+        DATE_SUB(CURDATE(), INTERVAL 30 DAY)  <![CDATA[<=]]> date(a.gmt_create)
+        AND a.org_id = #{orgId}
+        ORDER BY a.gmt_create desc
+    </select>
 </mapper>

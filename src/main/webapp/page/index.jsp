@@ -12,7 +12,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>layui后台管理模板</title>
+    <title>商洛学院社团管理系统</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
@@ -30,7 +30,7 @@
     <!-- 顶部 -->
     <div class="layui-header header">
         <div class="layui-main">
-            <a href="#" class="logo">社团管理系统</a>
+            <a href="#" class="logo">商洛学院社团管理系统</a>
 
             <!-- 顶部右侧菜单 -->
             <ul class="layui-nav top_menu">
@@ -40,12 +40,30 @@
                 <%--<li class="layui-nav-item" mobile>--%>
                     <%--<a href="javascript:;" data-url="page/user/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>设置</cite></a>--%>
                 <%--</li>--%>
-                <%--<li class="layui-nav-item" mobile>--%>
-                    <%--<a href="javascript:;"><i class="iconfont icon-loginout"></i> 退出</a>--%>
-                <%--</li>--%>
-                <%--<li class="layui-nav-item lockcms" pc>--%>
-                    <%--<a href="javascript:;"><i class="iconfont icon-lock1"></i><cite>锁屏</cite></a>--%>
-                <%--</li>--%>
+                <li class="layui-nav-item">
+                    <a href="javascript:;" id="Date" > </a>
+                </li>
+                <li class="layui-nav-item " pc>
+                    <a href="javascript:;"><i class="layui-icon">&#xe612;</i>   <cite>
+                        <c:choose>
+                            <c:when test="${sessionScope.userType eq 0}">
+                                <span class="layui-badge-rim">超级管理员</span>
+                            </c:when>
+                            <c:when test="${sessionScope.userType eq 1}">
+                                <span class="layui-badge-rim">系统管理员</span>
+                            </c:when>
+                            <c:when test="${sessionScope.userType eq 2}">
+                                <span class="layui-badge-rim ">社团管理员</span>
+                            </c:when>
+                            <c:when test="${sessionScope.userType eq 3}">
+                                <span class="layui-badge-rim">普通用户</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="layui-badge-rim">普通用户</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </cite></a>
+                </li>
                 <li class="layui-nav-item" pc>
                     <a href="javascript:;">
                         <img src="${ctx}/layui-admin/images/face.jpg" class="layui-circle" width="35" height="35">
@@ -72,7 +90,7 @@
     <div class="layui-body layui-form">
         <div class="layui-tab marg0" lay-filter="bodyTab">
             <ul class="layui-tab-title top_tab">
-                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>后台首页</cite></li>
+                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>系统首页</cite></li>
             </ul>
             <div class="layui-tab-content clildFrame">
                 <div class="layui-tab-item layui-show">
@@ -86,6 +104,9 @@
                         <c:when test="${sessionScope.userType eq 2}">
                             <iframe src="${ctx}/page/main2.jsp"></iframe>
                         </c:when>
+                        <c:otherwise>
+                            <iframe src="${ctx}/page/main2.jsp"></iframe>
+                        </c:otherwise>
                     </c:choose>
 
                 </div>
@@ -115,17 +136,59 @@
 <script type="text/javascript" src="${ctx}/layui-admin/layui/layui.js"></script>
 
 <c:choose>
-    <c:when test="${sessionScope.sessionUser.userType eq 1}">
-        <script type="text/javascript" src="${ctx}/layui-admin/js/nav.js"></script>
-    </c:when>
     <c:when test="${sessionScope.sessionUser.userType eq 0}">
         <script type="text/javascript" src="${ctx}/layui-admin/js/nav.js"></script>
     </c:when>
-    <c:otherwise>
+    <c:when test="${sessionScope.sessionUser.userType eq 1}">
         <script type="text/javascript" src="${ctx}/layui-admin/js/nav1.js"></script>
+    </c:when>
+    <c:when test="${sessionScope.sessionUser.userType eq 2}">
+        <script type="text/javascript" src="${ctx}/layui-admin/js/nav2.js"></script>
+    </c:when>
+    <c:otherwise>
+        <script type="text/javascript" src="${ctx}/layui-admin/js/nav3.js"></script>
     </c:otherwise>
 </c:choose>
 <script type="text/javascript" src="${ctx}/layui-admin/js/leftNav.js"></script>
 <script type="text/javascript" src="${ctx}/layui-admin/js/index.js"></script>
+<script>
+    window.onload=function(){
+        setInterval(function(){
+//            var weeks = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+//            var date=new Date();
+//            var year=date.getFullYear(); //获取当前年份
+//            var mon=date.getMonth()+1; //获取当前月份
+//            var da=date.getDate(); //获取当前日
+//            var day=date.getDay(); //获取当前星期几
+//
+//            var h=date.getHours(); //获取小时
+//            var m=date.getMinutes(); //获取分钟
+//            var s=date.getSeconds(); //获取秒
+            var d = new Date();
+// Mon Dec 18 2017 21:29:58 GMT+0800 (中国标准时间)
+            var weeks = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+//定义一个从星期日到星期六的数组，因为后面获取的星期数返回的是0-6
+//在西方看来，星期日才是一周的开始
+            var year = d.getFullYear();
+//获取年份
+            var mouth = d.getMonth() + 1;
+//获取月份，返回值是0-11，因此需要加1
+            var day = d.getDate();
+//获取日期
+            var hour = d.getHours() < 10 ? '0' + d.getHours() : d.getHours();
+//获取小时，三元表达式，判断是否小于10，小于10就在前面加0（字符串拼接），例如：08
+            var minutes = d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes();
+//获取分钟
+            var second = d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds();
+//获取秒数
+            var weekIndex = d.getDay();
+//获取星期数，返回0-6
+            var week = weeks[weekIndex];
+//            var time = "<i class=\"layui-icon\">&#xe612;</i>"+'当前时间:'+year+'年'+mon+'月'+da+'日'+'星期'+day+' '+h+':'+m+':'+s;
+            var time =  "<i class=\"layui-icon\">&#xe60e;</i>"+'&nbsp;&nbsp;'+year + '年' + mouth + '月' + day + '日' + hour + ':' + minutes + ':' + second + week;
+            console.log(time)
+            var d=document.getElementById('Date');
+            d.innerHTML=time  },50)  }
+</script>
 </body>
 </html>

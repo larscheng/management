@@ -1,37 +1,56 @@
 var navs = [{
-    "title" : "系统首页",
-    "icon" : "icon-computer",
-    "href" : "",
-    "spread" : false
+	"title" : "系统首页",
+	"icon" : "icon-computer",
+	"href" : "",
+	"spread" : false
 },{
-    "title" : "用户管理",
-    "icon" : "icon-text",
-    "href" : "/page/user/userList.jsp",
-    "spread" : false
-},{
-    "title" : "社团管理",
+    "title" : "我的社团",
     "icon" : "&#xe61c;",
     "href" : "",
     "spread" : false,
     "children" : [
         {
-            "title" : "社团列表",
+            "title" : "已加入社团",
             "icon" : "&#xe631;",
-            "href" : "/page/org/orgList.jsp",
+            "href" : "/page/org/myOrgList.jsp",
             "spread" : false
         },
         {
-            "title" : "待审核列表",
+            "title" : "申请记录",
             "icon" : "&#xe631;",
-            "href" : "/page/org/org2List.jsp",
+            "href" : "/page/apply/applyList.jsp",
             "spread" : false
         }
     ]
 },{
-    "title" : "管理员列表",
+    "title" : "查看社团",
     "icon" : "icon-text",
-    "href" : "/page/user/admList.jsp",
+    "href" : "/page/org/ableOrgList.jsp",
     "spread" : false
+},{
+    "title" : "创建社团",
+    "icon" : "&#xe61c;",
+    "href" : "",
+    "spread" : false,
+    "children" : [
+        {
+            "title" : "申请建团",
+            "icon" : "&#xe631;",
+            "href" : "page/org/addOrg.jsp",
+            "spread" : false
+        },
+        {
+            "title" : "创建记录",
+            "icon" : "&#xe631;",
+            "href" : "/page/apply/createList.jsp",
+            "spread" : false
+        }
+    ]
+},{
+	"title" : "查看公告",
+	"icon" : "&#xe61c;",
+	"href" : "page/notice/noticeAllList.jsp",
+	"spread" : false
 },{
     "title" : "个人信息管理",
     "icon" : "&#xe61c;",

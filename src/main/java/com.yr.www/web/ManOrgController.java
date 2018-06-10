@@ -8,6 +8,7 @@ import com.yr.www.entity.*;
 import com.yr.www.entity.dto.ManNoticeDto;
 import com.yr.www.entity.dto.ManOrgDto;
 import com.yr.www.enums.EnumOrgType;
+import com.yr.www.enums.EnumUserType;
 import com.yr.www.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -149,6 +150,7 @@ public class ManOrgController {
      */
     @RequestMapping(value = {"/orgChangeUser"})
     @ResponseBody
+    @Transactional
     public Object orgChangeUser(ManOrg org){
         if (ObjectUtils.isEmpty(org.getOrgFounder())||ObjectUtils.isEmpty(org.getId())){
             return JSONObject.toJSON("输入错误！");
@@ -157,6 +159,12 @@ public class ManOrgController {
         if (!ObjectUtils.isEmpty(manOrg)&&org.getOrgFounder().equals(manOrg.getOrgFounder())){
             return JSONObject.toJSON("不可以将社团转让给自己");
         }
+        //原社长角色变为普通用户，新社长角色变为社长
+        ManUser oldUser = new ManUser().setId(manOrg.getOrgFounder()).setUserType(EnumUserType.user.getValue());
+        manUserMapper.updateById(oldUser);
+        ManUser newUser = new ManUser().setId(org.getOrgFounder()).setUserType(EnumUserType.orgAdm.getValue());
+        manUserMapper.updateById(newUser);
+        //更换社长
         manOrgMapper.updateById(org);
         return JSONObject.toJSON("OK");
     }
@@ -295,7 +303,7 @@ public class ManOrgController {
     }
 
     /**
-     * 社团审核
+     * 社团创建审核
      * @param org
      * @return
      */
@@ -304,7 +312,7 @@ public class ManOrgController {
     @Transactional
     public Object orgAudit(ManOrg org){
         manOrgMapper.updateById(org);
-        //创建人加入社团
+        //审核通过，创建人加入社团，创建人转换角色为社长
         if (org.getAuditStatus()==2){
             ManOrg manOrg = manOrgMapper.selectById(org.getId());
             ManUserOrg manUserOrg = new ManUserOrg();
@@ -312,6 +320,10 @@ public class ManOrgController {
             manUserOrg.setuId(manOrg.getOrgFounder());
             manUserOrg.setGmtCreate(new Date());
             manUserOrgMapper.insert(manUserOrg);
+            //更新用户角色为社长
+            ManUser user = new ManUser();
+            user.setId(manOrg.getOrgFounder()).setUserType(EnumUserType.orgAdm.getValue());
+            manUserMapper.updateById(user);
         }
 
         return JSONObject.toJSON("OK");

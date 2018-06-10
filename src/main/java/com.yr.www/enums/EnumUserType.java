@@ -12,8 +12,10 @@ import java.util.Map;
  *
  */
 public enum EnumUserType {
-    ADMIN(1, "管理员"),
-    USER(2, "用户"),
+    superAdm(0, "超级管理员"),
+    adm(1, "管理员"),
+    orgAdm(2, "社长"),
+    user(3, "用户"),
     ;
 
     private Integer      value;
