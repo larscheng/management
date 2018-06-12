@@ -5,7 +5,7 @@ var navs = [{
 	"spread" : false
 },{
     "title" : "我的社团",
-    "icon" : "&#xe61c;",
+    "icon" : "&#xe631;",
     "href" : "",
     "spread" : false,
     "children" : [
@@ -24,12 +24,12 @@ var navs = [{
     ]
 },{
     "title" : "查看社团",
-    "icon" : "icon-text",
+    "icon" : "&#xe631;",
     "href" : "/page/org/ableOrgList.jsp",
     "spread" : false
 },{
     "title" : "我管理的社团",
-    "icon" : "&#xe61c;",
+    "icon" : "&#xe632;",
     "href" : "",
     "spread" : false,
     "children" : [
@@ -94,9 +94,4 @@ var navs = [{
     "icon" : "&#xe61c;",
     "href" : "/logout",
     "spread" : false
-}/*,{
-	"title" : "系统基本参数",
-	"icon" : "&#xe631;",
-	"href" : "page/systemParameter/systemParameter.html",
-	"spread" : false
-}*/]
+}]

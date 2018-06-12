@@ -22,15 +22,25 @@
     <link rel="stylesheet" href="${ctx}/layui-admin/layui/css/layui.css" media="all" />
     <link rel="stylesheet" href="${ctx}/layui-admin/css/font_eolqem241z66flxr.css" media="all" />
     <link rel="stylesheet" href="${ctx}/layui-admin/css/main.css" media="all" />
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <style>
+        /* Make the image fully responsive */
+        .carousel-inner img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body class="childrenBody">
-<div class="panel_box row" style="margin-left: 20%">
+<div class="panel_box row" style="width: 90%;margin-bottom: 5px;">
 
 
     <div class="panel col">
         <a href="javascript:;" data-url="page/org/myOrgList.jsp">
             <div class="panel_icon" style="background-color:#FF5722;">
-                <%--<i class="iconfont icon-dongtaifensishu" data-icon="icon-dongtaifensishu"></i>--%>
                     <i class="layui-icon" data-icon="&#xe609;">&#xe609;</i>
             </div>
             <div class="panel_word userAll">
@@ -39,17 +49,20 @@
             </div>
         </a>
     </div>
-    <div class="panel col">
-        <a href="javascript:;" data-url="page/org/myCreateOrgList.jsp">
-            <div class="panel_icon" style="background-color:#009688;">
-                <i class="layui-icon" data-icon="&#xe612;">&#xe612;</i>
-            </div>
-            <div class="panel_word userAll">
-                <span>${sessionScope.myCreateOrgNum}</span>
-                <cite>管理的社团</cite>
-            </div>
-        </a>
-    </div>
+    <c:if test="${sessionScope.userType eq 2}">
+        <div class="panel col">
+            <a href="javascript:;" data-url="page/org/myCreateOrgList.jsp">
+                <div class="panel_icon" style="background-color:#009688;">
+                    <i class="layui-icon" data-icon="&#xe612;">&#xe612;</i>
+                </div>
+                <div class="panel_word userAll">
+                    <span>${sessionScope.myCreateOrgNum}</span>
+                    <cite>管理的社团</cite>
+                </div>
+            </a>
+        </div>
+    </c:if>
+
     <div class="panel col">
         <a href="javascript:;" data-url="page/notice/noticeAllList.jsp">
             <div class="panel_icon" style="background-color:#ffbb57;">
@@ -83,10 +96,52 @@
     <%--</div>--%>
 <%--</div>--%>
 
+<div id="demo" class="carousel slide" data-ride="carousel">
 
+    <!-- 指示符 -->
+    <ul class="carousel-indicators">
+        <li data-target="#demo" data-slide-to="0" class="active"></li>
+        <li data-target="#demo" data-slide-to="1"></li>
+        <li data-target="#demo" data-slide-to="2"></li>
+    </ul>
+
+    <!-- 轮播图片 -->
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="http://static.runoob.com/images/mix/img_fjords_wide.jpg">
+            <div class="carousel-caption">
+                <h3>第一张图片描述标题</h3>
+                <p>描述文字!</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="http://static.runoob.com/images/mix/img_nature_wide.jpg">
+            <div class="carousel-caption">
+                <h3>第二张图片描述标题</h3>
+                <p>描述文字!</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="http://static.runoob.com/images/mix/img_mountains_wide.jpg">
+            <div class="carousel-caption">
+                <h3>第三张图片描述标题</h3>
+                <p>描述文字!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 左右切换按钮 -->
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </a>
+
+</div>
 <script type="text/javascript" src="${ctx}/layui-admin/layui/layui.js"></script>
 <script>
-
+    $("#myCarousel").carousel('cycle');
     layui.config({
         base : "/layui-admin/js/"
     }).use(['form','element','layer','jquery'],function(){
@@ -99,6 +154,7 @@
             window.parent.addTab($(this));
         })
     })
+
 </script>
 </body>
 </html>

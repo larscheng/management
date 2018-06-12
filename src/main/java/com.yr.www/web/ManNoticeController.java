@@ -36,7 +36,6 @@ import java.util.List;
  * @since 2018-05-30
  */
 @Controller
-//@RequestMapping("/manNotice")
 public class ManNoticeController {
 
     @Autowired

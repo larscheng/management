@@ -16,15 +16,15 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>后台登录</title>
     <link rel="stylesheet" type="text/css" href="${ctx}/layui-admin/layui/css/layui.css" />
-    <link rel="stylesheet" type="text/css" href="${ctx}/layui-admin/css/login.css" />
-    <link href="${ctx}/css/login.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/layui-admin/login1.css" />
+    <link href="${ctx}/layui-admin/css/login.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 <div class="login_box">
-    <div class="login_l_img"><img src="${ctx}/images/login-img.png" /></div>
+    <div class="login_l_img"><img src="${ctx}/layui-admin/images/login-img.png" /></div>
     <div class="login">
-        <div class="login_logo"><a href="#"><img src="${ctx}/images/login_logo.png" /></a></div>
+        <div class="login_logo"><a href="#"><img src="${ctx}/layui-admin/images/login_logo.png" /></a></div>
         <div class="login_name">
             <p>商洛学院社团管理系统</p>
         </div>
@@ -39,9 +39,9 @@
                 <select name="userType" required lay-verify="required" class="userGrade" lay-filter="userGrade">
                     <option value="">----请选择用户类型----</option>
                     <option value="3">普通用户</option>
-                    <option value="2">社长</option>
+                    <option value="2">社团管理员</option>
                     <option value="1">管理员</option>
-                    <option value="0">超级管理管</option>
+                    <option value="0">超级管理员</option>
                 </select>
             </div>
             <div class="layui-form-item m-login-btn" style="margin-left: 80px">

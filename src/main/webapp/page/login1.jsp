@@ -16,76 +16,64 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>后台登录</title>
     <link rel="stylesheet" type="text/css" href="${ctx}/layui-admin/layui/css/layui.css" />
-    <link rel="stylesheet" type="text/css" href="${ctx}/layui-admin/css/login.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/layui-admin/css/dnormalize.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/layui-admin/css/ddemo.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/layui-admin/css/dcomponent.css" />
+
+    <link href="${ctx}/layui-admin/css/login.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-<div class="m-login-bg">
-    <div class="m-login">
-        <h3>社团管理系统登录</h3>
-        <div class="m-login-warp">
-            <%--<form class="layui-form" id="loginForm" method="post">--%>
-                <%--<div class="layui-form-item">--%>
-                    <%--<label class="layui-form-label">用户类型</label>--%>
-                    <%--<div class="layui-input-block">--%>
-                        <%--<input type="text" name="userCode" id="title" required lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-                <%--<div class="layui-form-item">--%>
-                    <%--<label class="layui-form-label">用户类型</label>--%>
-                    <%--<div class="layui-input-block">--%>
-                        <%--<input type="password" name="userPassword" id="password" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-                <%--<div class="layui-form-item">--%>
-                    <%--<label class="layui-form-label">用户类型</label>--%>
-                    <%--<div class="layui-input-block">--%>
-                        <%--<select name="userType" class="userGrade" lay-filter="userGrade">--%>
+<div class="container demo-1">
+    <div class="content">
+        <div id="large-header" class="large-header">
+            <canvas id="demo-canvas"></canvas>
+            <div class="login_box">
+                <div class="login_l_img"><img src="${ctx}/layui-admin/images/login-img.png" /></div>
+                <div class="login">
+                    <div class="login_logo"><a href="#"><img src="${ctx}/layui-admin/images/login_logo.png" /></a></div>
+                    <div class="login_name">
+                        <p>商洛学院社团管理系统</p>
+                    </div>
+                    <form class="layui-form" id="loginForm" method="post">
+                        <div class="layui-form-item">
+                            <input type="text" name="userCode" id="title" required lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-form-item">
+                            <input type="password" name="userPassword" id="password" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-form-item">
+                            <select name="userType" required lay-verify="required" class="userGrade" lay-filter="userGrade">
+                                <option value="">----请选择用户类型----</option>
+                                <option value="3">普通用户</option>
+                                <option value="2">社团管理员</option>
+                                <option value="1">管理员</option>
+                                <option value="0">超级管理员</option>
+                            </select>
+                        </div>
+                        <div class="layui-form-item m-login-btn" style="margin-left: 80px">
+                            <div class="layui-inline">
+                                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="login" <%--onclick="loginSubmit()"--%>>登录</button>
+                            </div>
+                            <div class="layui-inline">
+                                <button type="button" class="layui-btn layui-btn-primary register">注册</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
 
-                            <%--<option value="2">普通用户</option>--%>
-                            <%--<option value="1">管理员</option>--%>
-                        <%--</select>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-                <%--<div class="layui-form-item m-login-btn">--%>
-                    <%--<div class="layui-inline">--%>
-                        <%--<button class="layui-btn layui-btn-normal" lay-submit lay-filter="login" &lt;%&ndash;onclick="loginSubmit()"&ndash;%&gt;>登录</button>--%>
-                    <%--</div>--%>
-                    <%--<div class="layui-inline">--%>
-                        <%--<button type="button" class="layui-btn layui-btn-primary register">注册</button>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</form>--%>
-            <form class="layui-form" id="loginForm" method="post">
-                <div class="layui-form-item">
-                    <input type="text" name="userCode" id="title" required lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
-                </div>
-                <div class="layui-form-item">
-                    <input type="password" name="userPassword" id="password" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
-                </div>
-                <div class="layui-form-item">
-                    <!--<div class="layui-inline">-->
-                    <!--<input type="text" name="verity" required lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input">-->
-                    <!--</div>-->
-                    <!--<div class="layui-inline">-->
-                    <!--<img class="verifyImg" onclick="this.src=this.src+'?c='+Math.random();" src="../images/login/yzm.jpg" />-->
-                    <!--</div>-->
-                </div>
-                <div class="layui-form-item m-login-btn">
-                    <div class="layui-inline">
-                        <button class="layui-btn layui-btn-normal" lay-submit lay-filter="login" <%--onclick="loginSubmit()"--%>>登录</button>
-                    </div>
-                    <div class="layui-inline">
-                        <button type="button" class="layui-btn layui-btn-primary register">注册</button>
-                    </div>
-                </div>
-            </form>
         </div>
-        <p class="copyright">Copyright 2018 by yangrui</p>
     </div>
 </div>
+
+<p class="copyright">Copyright 2018 by yangrui</p>
 <script src="${ctx}/layui-admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-<script src="${ctx}/layui-admin/js/jquery-2.2.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${ctx}/layui-admin/js/jquery-2.2.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${ctx}/layui-admin/js/TweenLite.min.js"></script>
+<script src="${ctx}/layui-admin/js/EasePack.min.js"></script>
+<script src="${ctx}/layui-admin/js/rAF.js"></script>
+<script src="${ctx}/layui-admin/js/demo-1.js"></script>
+
 <script>
     layui.use(['form', 'layedit', 'laydate'], function() {
         var form = layui.form(),

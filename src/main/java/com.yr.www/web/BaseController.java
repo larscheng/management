@@ -38,7 +38,6 @@ import java.util.List;
  * @since 2018-04-13
  */
 @Controller
-//@SessionAttributes(value = {"sessionUser","userType","loginState"})
 public class BaseController {
 
     @Autowired
@@ -56,7 +55,7 @@ public class BaseController {
      */
     @RequestMapping(value = {"","/"})
     public ModelAndView index(ModelAndView modelAndView){
-        modelAndView.setViewName("login");
+        modelAndView.setViewName("login1");
         return modelAndView;
     }
 

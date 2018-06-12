@@ -30,16 +30,11 @@
     <!-- 顶部 -->
     <div class="layui-header header">
         <div class="layui-main">
-            <a href="#" class="logo">商洛学院社团管理系统</a>
+            <a href="#" class="logo"> <i class="layui-icon" data-icon="&#xe609;" style="font-size: 25px">&#xe609;</i> 商洛学院社团管理系统</a>
 
             <!-- 顶部右侧菜单 -->
             <ul class="layui-nav top_menu">
-                <%--<li class="layui-nav-item showNotice" id="showNotice" pc>--%>
-                    <%--<a href="javascript:;"><i class="iconfont icon-gonggao"></i><cite>系统公告</cite></a>--%>
-                <%--</li>--%>
-                <%--<li class="layui-nav-item" mobile>--%>
-                    <%--<a href="javascript:;" data-url="page/user/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>设置</cite></a>--%>
-                <%--</li>--%>
+
                 <li class="layui-nav-item">
                     <a href="javascript:;" id="Date" > </a>
                 </li>
@@ -186,7 +181,7 @@
             var week = weeks[weekIndex];
 //            var time = "<i class=\"layui-icon\">&#xe612;</i>"+'当前时间:'+year+'年'+mon+'月'+da+'日'+'星期'+day+' '+h+':'+m+':'+s;
             var time =  "<i class=\"layui-icon\">&#xe60e;</i>"+'&nbsp;&nbsp;'+year + '年' + mouth + '月' + day + '日' + hour + ':' + minutes + ':' + second + week;
-            console.log(time)
+//            console.log(time)
             var d=document.getElementById('Date');
             d.innerHTML=time  },50)  }
 </script>

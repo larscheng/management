@@ -75,9 +75,4 @@ var navs = [{
     "icon" : "&#xe61c;",
     "href" : "/logout",
     "spread" : false
-}/*,{
-	"title" : "系统基本参数",
-	"icon" : "&#xe631;",
-	"href" : "page/systemParameter/systemParameter.html",
-	"spread" : false
-}*/]
+}]

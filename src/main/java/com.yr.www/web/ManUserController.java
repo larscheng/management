@@ -34,7 +34,6 @@ import java.util.stream.Collectors;
  * @since 2018-05-22
  */
 @Controller
-//@RequestMapping("/manUser")
 public class ManUserController {
 
     @Autowired
@@ -85,7 +84,6 @@ public class ManUserController {
     @RequestMapping(value = {"/userList"})
     @ResponseBody
     public Object userList(ManUser user){
-//        List<ManUserDto> users = manUserMapper.selectUserDtoList();
         List<ManUser> users = manUserMapper.selectList(new EntityWrapper<>());
         //adm
         if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(EnumUserType.adm.getValue())){

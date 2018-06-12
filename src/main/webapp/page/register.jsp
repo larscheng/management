@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title>后台登录</title>
     <link rel="stylesheet" type="text/css" href="${ctx}/layui-admin/layui/css/layui.css" />
-    <link rel="stylesheet" type="text/css" href="${ctx}/layui-admin/css/login.css" />
+    <link rel="stylesheet" type="text/css" href="${ctx}/layui-admin/css/login1.css" />
 </head>
 
 <body>

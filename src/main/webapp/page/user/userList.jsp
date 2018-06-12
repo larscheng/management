@@ -45,7 +45,7 @@
             <col>
             <col width="9%">
             <col width="9%">
-            <col width="9%">
+            <col width="15%">
             <col width="9%">
             <col width="15%">
         </colgroup>
@@ -362,7 +362,7 @@
                             +'</tr>';
                     }
                 }else{
-                    dataHtml = '<tr><td colspan="8">暂无数据</td></tr>';
+                    dataHtml = '<tr><td colspan="9">暂无数据</td></tr>';
                 }
                 return dataHtml;
             }

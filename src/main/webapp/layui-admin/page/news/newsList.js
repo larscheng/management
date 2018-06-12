@@ -1,7 +1,7 @@
 layui.config({
 	base : "js/"
 }).use(['form','layer','jquery','laypage'],function(){
-	var form = layui.form(),
+	var form = layui.form,
 		layer = parent.layer === undefined ? layui.layer : parent.layer,
 		laypage = layui.laypage,
 		$ = layui.jquery;
@@ -113,7 +113,7 @@ layui.config({
 		var index = layui.layer.open({
 			title : "添加文章",
 			type : 2,
-			content : "newsAdd.html",
+			content : "",
 			success : function(layero, index){
 				layui.layer.tips('点击此处返回文章列表', '.layui-layer-setwin .layui-layer-close', {
 					tips: 3

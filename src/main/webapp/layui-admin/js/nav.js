@@ -57,19 +57,4 @@ var navs = [{
     "href" : "/logout",
     "spread" : false,
     "target":"_top"
-}/*,{
-	"title" : "友情链接",
-	"icon" : "icon-text",
-	"href" : "page/links/linksList.html",
-	"spread" : false
-},{
-	"title" : "404页面",
-	"icon" : "&#xe61c;",
-	"href" : "page/404.html",
-	"spread" : false
-},{
-	"title" : "系统基本参数",
-	"icon" : "&#xe631;",
-	"href" : "page/systemParameter/systemParameter.html",
-	"spread" : false
-}*/]
+}]

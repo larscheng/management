@@ -23,7 +23,9 @@ import java.util.Arrays;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
-
+    /***
+     * 不过滤的请求
+     */
     private static final String[] IGNORE_URI={"/initRegister","/","","/login","/register"};   //填写XX.do
 
 
@@ -53,48 +55,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
             }
         }
 
-
-//        LoginRequired methodAnnotation = method.getAnnotation(LoginRequired.class);
-
-//        if (methodAnnotation != null) {
-//            String param = methodAnnotation.value();
-//            if (!ObjectUtils.isEmpty(admin)) {
-//                try {
-//                    boolean boo = false;
-//                    if (param.equals("stu")){
-//                        boo =  Objects.equals(admin.getUserType(), EnumUserType.STUDENT.getValue());
-//                    }else if (param.equals("tea")){
-//                        boo =  Objects.equals(admin.getUserType(), EnumUserType.TEACHER.getValue());
-//                    }else if (param.equals("adm")){
-//                        boo =  Objects.equals(admin.getUserType(), EnumUserType.ADMIN0.getValue())||
-//                                Objects.equals(admin.getUserType(), EnumUserType.ADMIN.getValue());
-//                    }else if (param.equals("admTea")){
-//                        boo =  Objects.equals(admin.getUserType(), EnumUserType.ADMIN0.getValue())||
-//                                Objects.equals(admin.getUserType(), EnumUserType.ADMIN.getValue())||
-//                                Objects.equals(admin.getUserType(), EnumUserType.TEACHER.getValue());
-//                    }
-//                    if (!boo){
-//                        System.out.println("========"+name+"===>LoginInterceptor preHandle 拦截，权限不足！ip:"+ip);
-//                        request.getRequestDispatcher("/auth.html").forward(request, response);
-////                        response.getWriter().write("<script>window.open('/auth.html','_top')</script>");
-//                    }else {
-//                        System.out.println("========"+name+"===>LoginInterceptor preHandle 拥有权限，通过！ip:"+ip);
-//                    }
-//                    return boo;
-//                } catch (Exception e) {
-//                    response.setCharacterEncoding("UTF-8");
-//                    System.out.println("========"+name+"===>LoginInterceptor preHandle 拦截，登录已过期，请重新登录！ip:"+ip);
-//                    response.getWriter().write("<script>window.open('/','_top')</script>");
-//                    return false;
-//                }
-//            } else {
-//                response.setCharacterEncoding("UTF-8");
-//                System.out.println("========"+name+"===>LoginInterceptor preHandle 拦截，尚未登录！ip:"+ip);
-////                request.getRequestDispatcher("/login.jsp").forward(request, response);
-//                response.getWriter().write("<script>window.open('/','_top')</script>");
-//                return false;
-//            }
-//        }
         System.out.println("========"+name+"===>LoginInterceptor preHandle 没加验证注解放行  ip:"+ip);
         return true;
     }
@@ -105,8 +65,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response,
                            Object handler, ModelAndView modelAndView) throws Exception {
-//        String name = request.getServletPath();
-//        System.out.println("========"+name+"===>LoginInterceptor postHandle");
+
     }
 
     /**
@@ -116,7 +75,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     public void afterCompletion(HttpServletRequest request,
                                 HttpServletResponse response, Object handler, Exception exc)
             throws Exception {
-//        String name = request.getServletPath();
-//        System.out.println("========"+name+"===>LoginInterceptor afterCompletion");
+
     }
 }

@@ -35,7 +35,6 @@ import java.util.stream.Collectors;
  * @since 2018-05-23
  */
 @Controller
-//@RequestMapping("/manOrg")
 public class ManOrgController {
 
     @Autowired
