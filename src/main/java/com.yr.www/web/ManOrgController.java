@@ -104,7 +104,13 @@ public class ManOrgController {
         return modelAndView;
     }
 
-
+    @RequestMapping(value = {"/orgAddInit"})
+    public ModelAndView orgAddInit(ModelAndView modelAndView){
+        List<ManUser> users = manUserMapper.selectList(new EntityWrapper<ManUser>().and("user_type>{0}",1));
+        modelAndView.addObject("users",users);
+        modelAndView.setViewName("org/addOrg");
+        return modelAndView;
+    }
 
     /**
      * 社长跳转到社团成员页

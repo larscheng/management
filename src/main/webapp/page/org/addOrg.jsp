@@ -28,7 +28,10 @@
         <label class="layui-form-label">社团名称</label>
         <div class="layui-input-block">
             <input type="text" name="orgName" class="layui-input newsName" lay-verify="required" placeholder="请输入社团名称">
-            <input type="hidden" name="orgFounder" value="${sessionScope.sessionUser.id}" class="layui-input newsName" lay-verify="required" placeholder="请输入社团名称">
+            <c:if test="${sessionScope.userType >1}">
+
+                <input type="hidden" name="orgFounder" value="${sessionScope.sessionUser.id}" class="layui-input newsName" lay-verify="required" placeholder="请输入社团名称">
+            </c:if>
         </div>
     </div>
     <div class="layui-form-item">
@@ -54,6 +57,19 @@
                 </select>
             </div>
         </div>
+        <c:if test="${sessionScope.userType <2}">
+            <div class="layui-inline">
+                <label class="layui-form-label">社团管理员</label>
+                <div class="layui-input-inline">
+                    <select name="orgFounder" class="newsLook" lay-filter="browseLook">
+                        <c:forEach items="${users}" var="user">
+                            <option value="${user.id}">${user.userName}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+        </c:if>
+
     </div>
 
     <div class="layui-form-item">
@@ -107,10 +123,10 @@
                         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
                         setTimeout(function(){
                             top.layer.close(index);
-                            top.layer.msg("社团添加成功！");
+                            top.layer.msg("社团添加成功！正在等待审核");
                             layer.closeAll("iframe");
                             //刷新父页面
-                            parent.location.reload();
+                            location.href="/page/apply/createList.jsp";
                         },500);
                     } else{
                         alert(msg)

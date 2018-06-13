@@ -100,14 +100,15 @@ public class ManNoticeController {
     @RequestMapping(value = {"/noticeAllList"})
     @ResponseBody
     public Object noticeAllList(Integer id ){
+        List<ManNoticeDto> noticeDtos  = new ArrayList<>();
         //根据用户id查询orgid
         List<Integer> orgIds = new ArrayList<>();
         List<ManUserOrg> manUserOrgs = manUserOrgMapper.selectListByUid(id);
         if (CollectionUtils.isEmpty(manUserOrgs)){
-            return null;
+            return JSONObject.toJSON(noticeDtos);
         }
         manUserOrgs.forEach(manUserOrg -> orgIds.add(manUserOrg.getoId()));
-        List<ManNoticeDto> noticeDtos  = new ArrayList<>();
+
         //根据oid查询近30天的公告
         for (Integer oid:orgIds
              ) {

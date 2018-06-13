@@ -14,11 +14,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>后台登录</title>
+    <title>商洛学院社团管理系统</title>
+    <link rel="icon" href="${ctx}/layui-admin/favicon.ico">
     <link rel="stylesheet" type="text/css" href="${ctx}/layui-admin/layui/css/layui.css" />
     <link rel="stylesheet" type="text/css" href="${ctx}/layui-admin/login1.css" />
     <link href="${ctx}/layui-admin/css/login.css" rel="stylesheet" type="text/css" />
 </head>
+
 
 <body>
 <div class="login_box">
