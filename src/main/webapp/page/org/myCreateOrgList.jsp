@@ -427,11 +427,11 @@
 //                                +'<td><a class="layui-btn layui-btn-mini news_able" data-id="'+currData[i].id+'" data-state="1"><i class="iconfont icon-edit"></i> 启用</a>';
                         }
 
-                        dataHtml += '<td><a class="layui-btn layui-btn-normal layui-btn-mini news_home" data-id="'+currData[i].id+'"><i class="layui-icon"></i> 首页</a>'
-                            + '<a class="layui-btn layui-btn-mini news_edit" data-id="'+currData[i].id+'"><i class="iconfont icon-edit"></i> 编辑</a>'
-                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_user" data-id="'+currData[i].id+'"><i class="layui-icon "></i> 成员管理</a>'
-                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_pub1" data-id="'+currData[i].id+'"><i class="layui-icon "></i> 公告管理</a>'
-                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_quit" data-id="'+currData[i].id+'"><i class="layui-icon "></i> 社团转让</a>'
+                        dataHtml += '<td><a class="layui-btn layui-btn-normal layui-btn-mini news_home" style="font-size: 14px;" data-id="'+currData[i].id+'"><i class="layui-icon"></i> 首页</a>'
+                            + '<a class="layui-btn layui-btn-mini news_edit" style="font-size: 14px;" data-id="'+currData[i].id+'"><i class="iconfont icon-edit"></i> 编辑</a>'
+                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_user" style="font-size: 14px;" data-id="'+currData[i].id+'"><i class="layui-icon "></i> 成员管理</a>'
+                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_pub1" style="font-size: 14px;" data-id="'+currData[i].id+'"><i class="layui-icon "></i> 公告管理</a>'
+                            +  '<a class="layui-btn layui-btn-danger layui-btn-mini news_quit" style="font-size: 14px;" data-id="'+currData[i].id+'"><i class="layui-icon "></i> 社团转让</a>'
                             +'</td>'
                             +'</tr>';
                     }

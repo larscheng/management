@@ -35,8 +35,8 @@
         }
     </style>
 </head>
-<body class="childrenBody">
-<div class="panel_box row" style="width: 99%; margin-bottom: 3px">
+<body class="childrenBody" style="background-color: #ebf6f3">
+<div class="panel_box row" style="width: 101%; margin-bottom: 3px">
 
     <div class="panel col">
         <a href="javascript:;" data-url="page/user/newUserList.jsp">
@@ -124,26 +124,26 @@
     <!-- 轮播图片 -->
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="http://static.runoob.com/images/mix/img_fjords_wide.jpg">
+            <img src="${ctx}/layui-admin/images/home/计算机.jpg" <%--style="height: 650px"--%>>
             <div class="carousel-caption">
-                <h3>第一张图片描述标题</h3>
-                <p>描述文字!</p>
+                <h3>计算机社团欢迎您！</h3>
+                <%--<p>描述文字!</p>--%>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="http://static.runoob.com/images/mix/img_nature_wide.jpg">
+            <img src="${ctx}/layui-admin/images/home/书.jpg">
             <div class="carousel-caption">
-                <h3>第二张图片描述标题</h3>
-                <p>描述文字!</p>
+                <h3>图管会欢迎您！</h3>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="http://static.runoob.com/images/mix/img_mountains_wide.jpg">
+            <img src="${ctx}/layui-admin/images/home/建筑.jpg">
             <div class="carousel-caption">
-                <h3>第三张图片描述标题</h3>
-                <p>描述文字!</p>
+                <h3>科技创新协会欢迎您！</h3>
+                <%--<p>描述文字!</p>--%>
             </div>
         </div>
+
     </div>
 
     <!-- 左右切换按钮 -->
