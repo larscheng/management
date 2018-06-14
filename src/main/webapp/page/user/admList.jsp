@@ -59,8 +59,8 @@
             <col>
             <col width="9%">
             <col width="9%">
-            <col width="9%">
-            <col width="9%">
+            <col width="15%">
+            <col width="10%">
             <c:if test="${sessionScope.sessionUser.userType eq 0}">
                         <col width="15%">
             </c:if>

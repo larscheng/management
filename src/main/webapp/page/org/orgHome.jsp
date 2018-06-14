@@ -100,7 +100,7 @@
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">社长:&nbsp;&nbsp;&nbsp;&nbsp;${org.orgFounder}</label>
+            <label class="layui-form-label">社长:&nbsp;&nbsp;&nbsp;&nbsp;${org.userName}</label>
         </div>
     </div>
 

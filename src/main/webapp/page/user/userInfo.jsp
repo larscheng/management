@@ -86,7 +86,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">出生年月</label>
             <div class="layui-input-block">
-                <input type="text" name="userBirthday" value="${user.userBirthday}" placeholder="请输入出生年月" lay-verify="required|date" onclick="layui.laydate({elem: this,max: laydate.now()})" class="layui-input">
+                <input type="text" name="userBirthday" value="${user.userBirthday}" placeholder="请输入出生年月" <%--lay-verify="required|date"--%> onclick="layui.laydate({elem: this,max: laydate.now()})" class="layui-input">
             </div>
         </div>
 

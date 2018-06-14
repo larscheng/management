@@ -89,8 +89,9 @@ public class ManOrg implements Serializable {
         return orgName;
     }
 
-    public void setOrgName(String orgName) {
+    public ManOrg setOrgName(String orgName) {
         this.orgName = orgName;
+        return this;
     }
 
     public Integer getOrgFounder() {

@@ -234,6 +234,10 @@ public class ManOrgController {
     @RequestMapping(value = {"/orgAdd"})
     @ResponseBody
     public Object orgAdd(ManOrg org){
+        ManOrg org1 = manOrgMapper.selectOne(new ManOrg().setOrgName(org.getOrgName()));
+        if (!ObjectUtils.isEmpty(org1)){
+            return JSONObject.toJSON("该社团名称已被使用，请重新申请！");
+        }
         org.setGmtCreate(new Date());
         manOrgMapper.insert(org);
         return JSONObject.toJSON("OK");
@@ -361,7 +365,9 @@ public class ManOrgController {
     public ModelAndView orgHome(ModelAndView modelAndView, Integer id){
 
         ManOrg manOrg = manOrgMapper.selectById(id);
-        modelAndView.addObject("org",manOrg);
+        ManOrgDto manOrgDto = ManMapStructMapper.INSTANCE.ManOrgPo2Dto(manOrg);
+        manOrgDto.setUserName(manUserMapper.selectById(manOrg.getOrgFounder()).getUserName());
+        modelAndView.addObject("org",manOrgDto);
         ManNotice manNotice = new ManNotice();
         manNotice.setOrgId(id);
         List<ManNoticeDto> notices = manNoticeMapper.selectDtoList(manNotice);

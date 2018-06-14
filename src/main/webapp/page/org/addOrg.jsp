@@ -106,7 +106,7 @@
         form.on("submit(addNews)",function(data){
             console.log(layedit.getContent(editIndex));
             var formData = new FormData($( "#addOrgForm" )[0]);  // 要求使用的html对象
-            formData.append("orgInfo",layedit.getContent(editIndex));
+            formData.append("orgInfo",layedit.getContent(editIndex).slice(1));
             $.ajax({
                 type: "post",
                 url: "/orgAdd",
@@ -129,7 +129,7 @@
                             location.href="/page/apply/createList.jsp";
                         },500);
                     } else{
-                        alert(msg)
+                        layer.alert(msg)
                     }
 
                 },

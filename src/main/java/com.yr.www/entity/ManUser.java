@@ -112,8 +112,9 @@ public class ManUser implements Serializable {
         return userName;
     }
 
-    public void setUserName(String userName) {
+    public ManUser setUserName(String userName) {
         this.userName = userName;
+        return this;
     }
 
     public Integer getUserSex() {

@@ -55,10 +55,10 @@
 <div class="layui-form news_list">
     <table class="layui-table">
         <colgroup>
-            <col width="2%">
-            <col width="20%">
+            <col width="50">
+            <col >
             <col width="9%">
-            <col width="9%">
+            <col width="15%">
             <col width="9%">
             <col width="20%">
             <col width="9%">

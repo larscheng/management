@@ -136,11 +136,12 @@
         var editIndex = layedit.build('news_content');
         var addNewsArray = [],addNews;
         <%--layedit.setContent(editIndex,${org.orgInfo}})--%>
-
         form.on("submit(addNews)",function(data){
-            console.log(layedit.getContent(editIndex));
+            console.log(layedit.getContent(editIndex).slice(1));
             var formData = new FormData($( "#addOrgForm" )[0]);  // 要求使用的html对象
-            formData.append("orgInfo",layedit.getContent(editIndex));
+            var orgInfo = layedit.getContent(editIndex).slice(1)
+            formData.append("orgInfo",orgInfo);
+//            console.log(layedit.getContent(editIndex).slice(1))
             $.ajax({
                 type: "post",
                 url: "/orgAble",

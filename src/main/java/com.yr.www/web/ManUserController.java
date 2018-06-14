@@ -19,10 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -93,6 +90,7 @@ public class ManUserController {
         if (!ObjectUtils.isEmpty(user.getUserType())&&user.getUserType().equals(EnumUserType.orgAdm.getValue())){
             users = users.stream().filter(user1 -> user1.getUserType().equals(EnumUserType.orgAdm.getValue())||user1.getUserType().equals(EnumUserType.user.getValue())).collect(Collectors.toList());
         }
+        users.sort(Comparator.comparing(ManUser::getGmtCreate).reversed());
         return JSONObject.toJSON(users);
     }
 
@@ -170,6 +168,10 @@ public class ManUserController {
     @RequestMapping(value = {"/userAdd"})
     @ResponseBody
     public Object userAdd(ManUser user){
+        ManUser user1 = manUserMapper.selectOne(new ManUser().setUserCode(user.getUserCode()));
+        if (!ObjectUtils.isEmpty(user1)){
+            return JSONObject.toJSON("该账号已被注册，请重新添加！");
+        }
         user.setGmtCreate(new Date());
         user.setUserPassword("123456");
         manUserMapper.insert(user);

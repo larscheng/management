@@ -169,13 +169,18 @@ public class BaseController {
     @RequestMapping("/login")
     @ResponseBody
     public String login(ManUser user, HttpSession session){
-        ManUser manUser = manUserMapper.selectOne(new ManUser().setUserCode(user.getUserCode()).setUserType(user.getUserType()));
+        ManUser manUser = manUserMapper.selectOne(new ManUser().setUserCode(user.getUserCode()));
         if (ObjectUtils.isEmpty(manUser)){
             return "该用户不存在，请重新登录";
-        }else if (manUser.getUserStatus().equals(EnumEnOrDis.DISABLED.getValue())){
+        }
+        if (manUser.getUserStatus().equals(EnumEnOrDis.DISABLED.getValue())){
             return "该用户已被禁用，请重新登录";
-        }else if (!manUser.getUserPassword().equals(user.getUserPassword())){
+        }
+        if (!manUser.getUserPassword().equals(user.getUserPassword())){
             return "账号密码错误，请重新登录";
+        }
+        if (!manUser.getUserType().equals(user.getUserType())){
+            return "登录身份类型错误，请重新登录";
         }
 
         session.setAttribute("sessionUser",manUser);

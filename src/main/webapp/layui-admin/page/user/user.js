@@ -54,11 +54,11 @@ layui.config({
             //     layer.close(index);
             //     layer.msg("修改成功！");
             // },2000);
-            // return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
             layer.msg("修改成功!")
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         })
 
-        
+
         //
         // //修改密码
         // form.on("submit(changePwd)",function(data){

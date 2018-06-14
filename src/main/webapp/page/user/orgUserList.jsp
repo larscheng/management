@@ -37,8 +37,8 @@
             <col>
             <col width="9%">
             <col width="9%">
-            <col width="9%">
             <col width="15%">
+            <col width="12%">
             <col width="15%">
             <c:if test="${sessionScope.sessionUser.id eq 1}">
                 <col width="5%">

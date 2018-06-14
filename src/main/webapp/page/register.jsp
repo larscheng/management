@@ -39,6 +39,12 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
+                    <label class="layui-form-label">手机号码</label>
+                    <div class="layui-input-block">
+                        <input type="tel" name="userPhone" placeholder="请输入手机号码" lay-verify="required|phone" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label">性别</label>
                     <div class="layui-input-block userSex">
                         <input type="radio" name="userSex" value="1" title="男" checked>

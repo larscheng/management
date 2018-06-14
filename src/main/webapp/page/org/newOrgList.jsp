@@ -195,9 +195,9 @@
         //添加文章
         $(".newsAdd_btn").click(function(){
             var index = layui.layer.open({
-                title : "社团成员",
+                title : "添加社团",
                 type : 2,
-                content : "addOrg.jsp",
+                content : "/orgAddInit",
                 success : function(layero, index){
                     layui.layer.tips('点击此处返回文章列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
