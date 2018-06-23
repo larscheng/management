@@ -101,7 +101,7 @@
             </div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">社长:&nbsp;&nbsp;&nbsp;&nbsp;${org.userName}</label>
+            <label class="layui-form-label" style="width: 100px">社长:&nbsp;&nbsp;&nbsp;&nbsp;${org.userName}</label>
 
     </div>
 
@@ -137,11 +137,12 @@
         var addNewsArray = [],addNews;
         <%--layedit.setContent(editIndex,${org.orgInfo}})--%>
         form.on("submit(addNews)",function(data){
-            console.log(layedit.getContent(editIndex).slice(1));
+
             var formData = new FormData($( "#addOrgForm" )[0]);  // 要求使用的html对象
-            var orgInfo = layedit.getContent(editIndex).slice(1)
+            var orgInfo = layedit.getContent(editIndex)
+            console.log(orgInfo);
             formData.append("orgInfo",orgInfo);
-//            console.log(layedit.getContent(editIndex).slice(1))
+            console.log(formData)
             $.ajax({
                 type: "post",
                 url: "/orgAble",
